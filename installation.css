@@ -1,15 +1,13 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #a81414;
+  background-color: #f0f0f0; /* Light gray background color */
   padding: 0;
-  background-image: url('./ins.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
+
 .container {
-  max-width: 960px;
+  max-width: 800px;
   margin: 20px auto;
   padding: 20px;
   background-color: #a9e9f1;
@@ -194,4 +192,13 @@ body {
   body {
       font-size: 12px;
   }
+}
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.logo-container img {
+  max-width: 100%;
+  height: auto;
 }

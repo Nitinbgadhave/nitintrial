@@ -93,6 +93,10 @@
         <img src="./install.jpg" alt="Admin Icon">
         <span>Installation Report</span>
       </a>
+      <!-- <a id="debitLink" href="./EngineerDebit.html">
+        <img src="./cash.jpg" alt="Admin Icon">
+        <span>Cash Memo</span>
+      </a> -->
          </div>
         <button class="logout-button" onclick="logout()">
     <i class="material-icons">power_settings_new</i> Logout
@@ -102,6 +106,18 @@
   </div>
 
   <script>
+    // Get the URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+
+// Get the value of the employeeId parameter
+const employeeId = urlParams.get('employeeId');
+
+// Use the employeeId value
+console.log('Employee ID:', employeeId);
+ // JavaScript
+  var debitLink = document.getElementById("debitLink");
+  debitLink.href += "?empId=" + employeeId;
+
     function login() {
       var email = document.getElementById("email").value;
       var password = document.getElementById("password").value;

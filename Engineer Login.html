@@ -184,7 +184,8 @@
         if (data.success) {
           alert("Login successful");
           // Redirect to the next page
-          window.location.href = "./select.html";
+          var url = "./select.html?employeeId=" +  empId;
+          window.location.href = url;
         } else {
           alert("Login failed: " + data.message);
         }
