@@ -93,6 +93,62 @@
     #registerEngineerBtn:hover {
       background-color: #45a049; /* Darker green on hover */
     }
+    /* Button styles */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  background-color: #e7f0f0;
+  border-color: #f0f1f3;
+}
+
+/* Icon styles */
+.btn i {
+  margin-right: 5px;
+}
+ /* Existing styles remain unchanged */
+
+    /* Set all button colors to the same color */
+    .button-container a,
+    .button-container button {
+        background-color: #777; /* Set the desired color */
+        color: white; /* Set text color to white */
+        border: none; /* Remove border */
+        padding: 15px 30px; /* Set padding */
+        text-align: center; /* Center text */
+        text-decoration: none; /* Remove underline */
+        display: inline-block; /* Display as inline block */
+        font-size: 18px; /* Set font size */
+        font-weight: bold; /* Set font weight to bold */
+        border-radius: 5px; /* Add rounded corners */
+        transition: background-color 0.3s ease; /* Smooth background color transition */
+        margin-bottom: 10px; /* Add space between buttons */
+    }
+
+    /* Set hover effect for buttons */
+    .button-container a:hover,
+    .button-container button:hover {
+        background-color: #555; /* Darken the color on hover */
+    }
+    #logoutBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
   </style>
 </head>
 <body>
@@ -117,8 +173,16 @@
       </ul>
     </nav><br><br><br>
 
-    <!-- Centered Logout Button -->
-    <li><a href="#" id="registerEngineerBtn" class="blink"><i class="material-icons">person_add</i>Register New Engineer</a></li>
+    <div class="button-container">
+      <a href="#" id="registerEngineerBtn" class="btn"><i class="material-icons">person_add</i>Register New Engineer</a>
+      <a href="#" id="adminCreditBtn" class="btn"><i class="material-icons">account_balance</i>Admin Credit</a>
+      <button id="showBalancesBtn" class="btn">
+        <i class="material-icons">list_alt</i>
+       Check All Engineer's Balance
+      </button>
+      
+    </div>
+    
     <a href="#" id="logoutBtn" class="blink"><i class="material-icons">logout</i>Logout</a>
   </main>
 
@@ -140,6 +204,18 @@
       // Redirect to the engineer registration page
       window.location.href = './Engineer Registration.html';
     });
+    document.getElementById('adminCreditBtn').addEventListener('click', function() {
+      // Redirect to the engineer registration page
+      window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/AdminCredit.html';
+    });
   </script>
+   <script>
+    document.getElementById('showBalancesBtn').addEventListener('click', async () => {
+        const response = await fetch('https://localhost:7174/api/CDTransactions/AllEngineersBalance');
+        const data = await response.json();
+        localStorage.setItem('engineerBalances', JSON.stringify(data));
+        window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/AllEngineersBalance.html'; // Redirect to the page where the balances will be displayed
+    });
+</script>
 </body>
 </html>

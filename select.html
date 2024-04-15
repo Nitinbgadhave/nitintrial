@@ -93,10 +93,10 @@
         <img src="./install.jpg" alt="Admin Icon">
         <span>Installation Report</span>
       </a>
-      <!-- <a id="debitLink" href="./EngineerDebit.html">
+      <a id="debitLink" href="D:\Projects\Sil_Service_Form\Final pages\New Updates in Project\API & Database coonection with HTML\CreditAndDebit - Copy\HTML/EngineerDebit.html">
         <img src="./cash.jpg" alt="Admin Icon">
         <span>Cash Memo</span>
-      </a> -->
+      </a>
          </div>
         <button class="logout-button" onclick="logout()">
     <i class="material-icons">power_settings_new</i> Logout
@@ -117,29 +117,8 @@ console.log('Employee ID:', employeeId);
  // JavaScript
   var debitLink = document.getElementById("debitLink");
   debitLink.href += "?empId=" + employeeId;
+// Check if employeeId is already stored in sessionStorage
 
-    function login() {
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
-
-      var storedData = localStorage.getItem(email);
-
-      // Check if the email exists in localStorage
-      if (storedData) {
-        var userDetails = JSON.parse(storedData);
-
-        // Check if the entered password matches the stored password
-        if (userDetails.Password === password) {
-          alert("Login successful!");
-          // Redirect to the page with icons after successful login
-          window.location.href = 'service_page.html?username=' + email;
-        } else {
-          alert("Invalid email or password. Please try again.");
-        }
-      } else {
-        alert("Invalid email or password. Please try again.");
-      }
-    }
   </script>
 </body>
 </html>
