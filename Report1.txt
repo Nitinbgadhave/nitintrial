@@ -1,0 +1,6 @@
+Compression Wizard Progress
+
+- Determining table object'Test_CDTransactions' that will be executed. (Success)
+
+
+
