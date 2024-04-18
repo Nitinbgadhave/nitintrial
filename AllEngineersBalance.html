@@ -43,10 +43,17 @@
     <div class="button-container">
         <button id="exportExcelBtn">Export to Excel</button>
         <button id="exportPdfBtn">Export to PDF</button>
-        <button id="goToDashboardBtn" onclick="window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/INDEX/report admin.html';">Go to Dashboard</button>
+        <button id="backButton" onclick="goBack()"><i class="material-icons"></i>Go To Dashboard</button>
+
     </div>
 
     <script>
+
+        // Go Back
+        function goBack() {
+        window.history.back();
+    }
+    //all engineers history
         document.addEventListener('DOMContentLoaded', () => {
             const engineerBalances = JSON.parse(localStorage.getItem('engineerBalances'));
             if (Array.isArray(engineerBalances)) {

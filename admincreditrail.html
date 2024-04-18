@@ -146,8 +146,9 @@
                     </button>
                     
                     <span style="margin: 0 40px;"></span>
-                    <button id="allEngineerHistoryButton">All Engineer Transaction History</button>
+                    <button id="allEngineerHistoryButton">All Engineer Transaction History</button><br><br>
                     <button id="backButton" onclick="goBack()"><i class="material-icons">arrow_back</i>Go Back</button>
+
                 </form>
             </div>
         </div>
@@ -180,7 +181,7 @@
                 
                 <button id="filterButton">Filter</button>
                 <button id="exportPDFButton">Export as PDF</button>
-                <button id="exportXLSXButton">Export as Excel</button>
+                <button id="exportXLSXButton">Export as XLSX</button>
 
             </div>
         </div>
@@ -193,6 +194,12 @@
 document.getElementById("allEngineerHistoryButton").addEventListener("click", function() {
     window.open("D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/Adminreport.html", "_blank");
 });
+
+// go back button
+function goBack() {
+    window.history.back();
+}
+
 </script>
 
 <script>
@@ -254,97 +261,6 @@ document.getElementById('filterButton').addEventListener('click', function () {
     }
 });
 
-// async function renderTransactions(employeeId, startDate, endDate) {
-//     const data = await fetchTransactionsByEmployee(employeeId, startDate, endDate);
-//     const transactions = data.transactions;
-//     let totalBalance = data.balance || 0;
-//     const employeeName = localStorage.getItem('EmployeeName') || '';
-
-//     const balanceDiv = document.getElementById("balance");
-// balanceDiv.innerHTML = `<div style="text-align: center; margin-bottom: 10px;"> <strong>Engineer Name:</strong> <strong>${employeeName}</strong> <br><br> <strong>Employee ID:</strong> <strong>${employeeId}</strong></div>
-//                      <div style="text-align: right;"><span class="highlight-yellow">Total Balance: ${totalBalance}</span></div>`;
-
-//     balanceDiv.style.textAlign = "right";
-
-//     const tableBody = document.getElementById("transactions-body");
-//     tableBody.innerHTML = "";
-
-//     transactions.forEach((transaction, index) => {
-//         const row = document.createElement("tr");
-//         const credit = transaction.creditTransaction || 0;
-//         const debit = transaction.debitTransaction || 0;
-//         let balance = transaction.currentBalance || 0;
-
-//         // Check if the transaction is a credit transaction and if visitDate is minimum value
-//         if (credit > 0 && new Date(transaction.visitDate).getTime() === new Date(0).getTime()) {
-//             return; // Skip this row if it's a credit transaction with a minimum visitDate
-//         }
-
-//         row.innerHTML = `
-//         <td>${new Date(transaction.date).toLocaleDateString('en-GB')}</td>
-//             <td>${transaction.notes}</td>
-//             <td>${credit > 0 ? '' : new Date(transaction.visitDate).toLocaleDateString('en-GB')}</td>
-//             <td>${transaction.referenceNumber}</td>
-//             <td>${credit}</td>
-//             <td>${debit}</td>
-//             <td>${balance}</td>
-//         `;
-
-//         if (index === 0) {
-//             row.classList.add("highlight-green");
-//         }
-
-//         tableBody.appendChild(row);
-//     });
-// }
-
-// document.addEventListener('DOMContentLoaded', function () {
-//        document.getElementById('setCreditButton').addEventListener('click', function (event) {
-//             event.preventDefault(); // Prevent the form from submitting
-
-//             var employeeId = document.getElementById('employeeId').value;
-//             var employeeName = document.getElementById('EmployeeName').value;
-//             var note = document.getElementById('note').value;
-//             var creditTransaction = document.getElementById('creditTransaction').value;
-
-//             if (!employeeId || !employeeName || !note || !creditTransaction) {
-//                 alert('Please fill out all required fields.'); // Display an alert if any required field is empty
-//                 return;
-//             }
-
-//             // Create a JSON object with the form data
-//             var formData = {
-//                 EmployeeID: employeeId,
-//                 EmployeeName: employeeName,
-//                 Notes: note,
-//                 CreditTransaction: creditTransaction,
-//             };
-
-//             // Send a POST request to your API endpoint
-//             fetch('https://localhost:7174/api/CDTransactions/AddTransaction', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify(formData)
-//             })
-//                 .then(response => {
-//                     if (response.ok) {
-//                         return response.json(); // Parse the JSON response
-//                     } else {
-//                         throw new Error('Failed to save record');
-//                     }
-//                 })
-//                 .then(data => {
-//                     alert('Record saved successfully. Reference Number: ' + data.referenceNumber);
-//                     var addRecordForm1 = document.getElementById('addRecordForm'); // Reset the form
-//                     addRecordForm1.reset();
-//                 })
-//                 .catch(error => {
-//                     alert('Error: ' + error.message);
-//                 });
-//         });
-//         });
 
 async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
     let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
@@ -452,10 +368,6 @@ async function renderTransactions(employeeId, startDate, endDate) {
 }
 
 
-// Go back button 
-function goBack() {
-        window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/INDEX/report admin.html';
-    }
 
 
 document.getElementById('exportPDFButton').addEventListener('click', function () {
