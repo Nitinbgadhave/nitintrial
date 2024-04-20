@@ -206,7 +206,7 @@
     });
     document.getElementById('adminCreditBtn').addEventListener('click', function() {
       // Redirect to the engineer registration page
-      window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/AdminCredit.html';
+      window.location.href = './AdminCredit.html';
     });
   </script>
    <script>
@@ -214,7 +214,7 @@
         const response = await fetch('https://localhost:7174/api/CDTransactions/AllEngineersBalance');
         const data = await response.json();
         localStorage.setItem('engineerBalances', JSON.stringify(data));
-        window.location.href = 'D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/AllEngineersBalance.html'; // Redirect to the page where the balances will be displayed
+        window.location.href = './AllEngineersBalance.html'; // Redirect to the page where the balances will be displayed
     });
 </script>
 </body>
