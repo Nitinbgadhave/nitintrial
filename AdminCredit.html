@@ -209,7 +209,7 @@ function goBack() {
 document.getElementById('searchBtn').addEventListener('click', function () {
     var name = document.getElementById('name').value;
     if (name.length >= 3) { // Minimum characters required to start searching
-        fetch(`http://192.168.1.146:8995/api/CDTransactions/googlesheet/${name}`)
+        fetch(`https://192.168.1.146:8995/api/CDTransactions/googlesheet/${name}`)
             .then(response => response.json())
             .then(data => {
                 var nameList = document.getElementById('nameList');
