@@ -57,7 +57,7 @@
         window.history.back();
     }
     document.addEventListener('DOMContentLoaded', () => {
-    fetch('https://192.168.1.146:8995/api/CDTransactions/AllEngineersBalance')
+    fetch('http://192.168.1.146/api/CDTransactions/AllEngineersBalance')
         .then(response => response.json())
         .then(engineerBalances => {
             if (Array.isArray(engineerBalances)) {
