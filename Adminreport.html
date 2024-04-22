@@ -118,7 +118,7 @@ document.getElementById('dateFilterForm').addEventListener('submit', function(ev
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
 
-    fetch(`https://localhost:7174/api/CDTransactions/TransactionHistorys?startDate=${startDate}&endDate=${endDate}`)
+    fetch(`https://192.168.1.146:8995/api/CDTransactions/TransactionHistorys?startDate=${startDate}&endDate=${endDate}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
