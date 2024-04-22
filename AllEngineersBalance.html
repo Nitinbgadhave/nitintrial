@@ -53,16 +53,23 @@
         function goBack() {
         window.history.back();
     }
-    //all engineers history
-        document.addEventListener('DOMContentLoaded', () => {
-            const engineerBalances = JSON.parse(localStorage.getItem('engineerBalances'));
+    document.addEventListener('DOMContentLoaded', () => {
+    fetch('https://192.168.1.146:8995/api/CDTransactions/AllEngineersBalance')
+        .then(response => response.json())
+        .then(engineerBalances => {
             if (Array.isArray(engineerBalances)) {
                 const engineerBalancesHtml = engineerBalances.map(engineer => `<tr><td>${engineer.employeeID}</td><td>${engineer.employeeName}</td><td>${engineer.balance}</td></tr>`).join('');
                 document.getElementById('engineerBalances').innerHTML = `<table><tr><th>Employee ID</th><th>Employee Name</th><th>Available Balance</th></tr>${engineerBalancesHtml}</table>`;
             } else {
                 document.getElementById('engineerBalances').innerHTML = 'No engineer balances found.';
             }
+        })
+        .catch(error => {
+            console.error('Error fetching engineer balances:', error);
+            document.getElementById('engineerBalances').innerHTML = 'Failed to fetch engineer balances.';
         });
+});
+
 
         document.getElementById('exportExcelBtn').addEventListener('click', () => {
             const table = document.querySelector('table');
