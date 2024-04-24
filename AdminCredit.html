@@ -6,114 +6,149 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <img src="small.jpg" srcset="medium.jpg 1000w, large.jpg 2000w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" alt="Image">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            width: 100%;
-            padding: 20px;
-        }
+.container {
+    width: 100%;
+    padding: 20px;
+}
 
-        .row {
-            display: flex;
-        }
+.row {
+    display: flex;
+}
 
-        .col-md-6 {
-            width: 50%;
-        }
+.col-md-6 {
+    width: 50%;
+}
 
-        .form-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-        }
+.form-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        form {
-            margin-bottom: 20px;
-        }
+form {
+    margin-bottom: 20px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+label {
+    display: block;
+    margin-bottom: 5px;
+}
 
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
 
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+button:hover {
+    background-color: #0056b3;
+}
 
-        .material-icons {
-            vertical-align: middle;
-        }
+.material-icons {
+    vertical-align: middle;
+}
 
-        /* transaction table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+/* transaction table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
 
-        th {
-            background-color: #f2f2f2;
-        }
+th {
+    background-color: #f2f2f2;
+}
 
-        /* Tranasction highlight*/
-        .highlight-green {
-            background-color: lightgreen;
-        }
+/* Tranasction highlight*/
+.highlight-green {
+    background-color: lightgreen;
+}
 
-        /* Balance highlight*/
-        .highlight-yellow {
-            background-color: yellow;
-            padding: 5px;
-            display: inline-block; /* Ensures the background color only covers the content */
-        }
-        #nameList {
-                border: 1px solid #ccc;
-                padding: 5px;
-                max-height: 200px;
-                overflow-y: auto;
-            }
-    
-            #nameList div {
-                cursor: pointer;
-                padding: 3px;
-            }
-            
+/* Balance highlight*/
+.highlight-yellow {
+    background-color: yellow;
+    padding: 5px;
+    display: inline-block; /* Ensures the background color only covers the content */
+}
+
+#nameList {
+    border: 1px solid #ccc;
+    padding: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#nameList div {
+    cursor: pointer;
+    padding: 3px;
+}
+
+@media only screen and (max-width: 600px) {
+    /* Styles for screens smaller than 600px (e.g., mobile devices) */
+    body {
+        font-size: 14px; /* Adjust font size for better readability on small screens */
+    }
+
+    .container {
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    .col-md-6 {
+        width: 100%; /* Make columns take full width on small screens */
+    }
+
+    .form-container {
+        padding: 10px; /* Reduce padding for form container */
+    }
+
+    h1 {
+        font-size: 20px; /* Adjust heading font size for small screens */
+    }
+
+    th, td {
+        padding: 6px; /* Adjust table cell padding for better spacing on small screens */
+    }
+
+    /* You can add more styles here as needed */
+}
+
             
     </style>
+     <img src="" 
+     srcset=" 1000w, large.jpg 2000w" 
+     sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" 
+     alt="Image">
 </head>
 <body>
 <div class="container">
