@@ -6,9 +6,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
     .container {
     display: flex;
@@ -252,7 +249,7 @@ table {
         var empId = document.getElementById('empId').value;
         renderTransactions(empId);
         if (empId.length >= 3) {
-            fetch(`https://192.168.1.146:8995/api/CDTransactions/sheetgoogle/${empId}`)
+            fetch(`https://localhost:7174/api/CDTransactions/sheetgoogle/${empId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Invalid Employee ID');
@@ -306,7 +303,7 @@ table {
         };
 
         // Send a POST request to your API endpoint
-        fetch('https://192.168.1.146:8995/api/CDTransactions/AddTransaction', {
+        fetch('https://localhost:7174/api/CDTransactions/AddTransaction', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -353,7 +350,7 @@ table {
 });
 
 async function fetchTransactions(empid) {
-    const response = await fetch(`https://192.168.1.146:8995/api/CDTransactions/TransactionHistory/${empid}`);
+    const response = await fetch(`https://localhost:7174/api/CDTransactions/TransactionHistory/${empid}`);
     const data = await response.json();
     return data;
 }
@@ -402,7 +399,7 @@ async function renderTransactions(empid) {
 
 
 async function fetchTransactionsByDateRange(empid, startDate, endDate) {
-    const response = await fetch(`https://192.168.1.146:8995/api/CDTransactions/TransactionHistory/${empid}`);
+    const response = await fetch(`https://localhost:7174/api/CDTransactions/TransactionHistory/${empid}`);
     const data = await response.json();
     const transactions = data.transactions.filter(transaction => {
         const transactionDate = new Date(transaction.date);
