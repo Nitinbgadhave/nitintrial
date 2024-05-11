@@ -155,18 +155,6 @@ temp = temp.concat(problems);
 document.getElementById('selectedProblems').value = temp.join(',');
 }
 
-    
-//         document.getElementById('EmpID').addEventListener('blur', function() {
-//     var empId = this.value;
-//     fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
-//     .then(response => response.json())
-//     .then(data => {
-//         document.getElementById('Engineer Name').value = data.engineer_Name;
-//     })
-//     .catch(error => console.error(' ', error));
-// });
-
-   
 
 // FETCH FIRST AND LAST NAME
 document.getElementById('EmpID').addEventListener('blur', function() {
@@ -186,3 +174,22 @@ document.getElementById('EmpID').addEventListener('blur', function() {
   .catch(error => console.error('Error:', error));
   });
   
+// image preview
+function previewImage(event) {
+  var preview = document.getElementById('preview');
+  preview.style.display = "block";
+  preview.src = URL.createObjectURL(event.target.files[0]);
+
+  convertImageToBase64(event.target.files[0], function (base64) {
+      document.getElementById('imageBase64').value = base64;
+  });
+}
+
+function convertImageToBase64(file, callback) {
+  var reader = new FileReader();
+  reader.onloadend = function () {
+      var base64data = reader.result.split(',')[1];
+      callback(base64data);
+  };
+  reader.readAsDataURL(file);
+}

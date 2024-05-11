@@ -1,10 +1,18 @@
+<!-- This is the doctype declaration for an HTML5 document -->
 <!DOCTYPE html>
+<!-- This is the opening HTML tag, and the "lang" attribute specifies the language of the document -->
 <html lang="en">
 <head>
-
+    <!-- This meta tag sets the character set to UTF-8 -->
     <meta charset="UTF-8">
-    <title>Services Engineer Page</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- This meta tag tells IE to use the latest rendering engine -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- This meta tag sets the viewport to the width of the device and sets the initial zoom level to 1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- This sets the title of the webpage -->
+    <title>Document</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
 
     <style>
@@ -24,9 +32,8 @@
             <img src="./sil.png" alt="Company Logo">
         </header>
         <Center><h2>Services Report</h2></Center>
-        <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbyP1SVDTax1k4ux3DE73WXe-soTrxfNdHJBCahO5LFfbuwMAiisdDWI0j7_EGXHl7XEwA/exec"> Success image  -->
-                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycby9x5_bbidPuxkssDp8z47iTKytMvap8H-L0NuhECkxBR6zJQpiWQU-3ha-YxrL6PfI/exec">   -->
-                    <form method="POST" action="https://script.google.com/macros/s/AKfycbxMUYzASuI9-Wz4BGikAuG24lRCo9w66L4VIZsn7GjyuM50a_DqDdqbXk7T12CqyYQHBQ/exec">
+        <form method="POST" action="https://script.google.com/macros/s/AKfycbyT4EukDqrYutVVPcug4CP3Rbsj70iikAmThwmcSdfLBcuxGFs2C_5rUAVodyL7BmO2wg/exec">  
+                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbwirXGVYwzSqT_RufJd2tq6Y2sj4BIZJWoSlxH8H5A99bCukILefyXp3ZGuMA_tZiC57Q/exec">   -->
                 <div class="form-group">
                     <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
                     <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
@@ -42,7 +49,7 @@
             <div class="form-group">
                 <label for="Company Address">Company Address<span class="mandatory"></span>:</label>
                 <textarea id="Company Address" name="Company Address" rows="4" ></textarea>
-                <!-- <input type="text" id="Company Address" name="Company Address" required> -->
+              
             </div>
             <div class="form-group">
                 <label for="Select Machine Type">Select Machine Type<span class="mandatory"></span>:</label>
@@ -149,24 +156,12 @@
     <div class="form-group">
         <label for="Customer Name Seal & Sign">Customer Name Seal & Sign:</label>
         <textarea id="Customer Name Seal & Sign" name="Customer Name Seal & Sign" rows="4" ></textarea>
-        
-    </div>
-    
-    
-<!-- / -->
+<!-- This is an input element of type file, which allows the user to select an image -->
+<input type="file"accept="image/*">
 <!-- This is an image element with an empty src and alt attribute -->
-<!-- <img src="" alt=""> -->
-<!-- This is a script tag, which contains JavaScript code -->
+<img src="" alt="">
 
-<!-- <input type="file" id="imageUpload" onchange="previewImage(event)" accept="image/*"> -->
-<label for="customerSealSign">Customer Name Seal & Sign:</label>
-
-<input type="file" id="imageUpload" onchange="previewImage(event)" accept="image/*" capture="camera">
-
-<img id="preview" src="" alt="Image Preview" style="max-width: 200px; max-height: 200px; margin-top: 10px; display: none;">
-<input type="hidden" id="imageBase64" name="imageBase64">
-
-<br><br>
+    
     <div style="text-align: center;">
         <button type="submit" id="submitButton" style="color: #ffffff; background-color: #4CAF50; padding: 10px 20px; font-size: 16px; float: left;">
             <i class="material-icons">send</i> Submit
@@ -198,20 +193,7 @@
                 preview.src = URL.createObjectURL(event.target.files[0]);
             }
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
-        
-    <script>
-            function uploadImage() {
-                if (cropper) {
-                    var canvas = cropper.getCroppedCanvas();
-                    var imageData = canvas.toDataURL('image/jpeg'); // you can also use 'image/png'
-                    // Upload imageData to your server
-                    // Reset the form or perform any other actions needed
-                    document.getElementById('preview').style.display = 'none';
-                    cropper.destroy();
-                }
-            }
-        </script>
+      
     </div>
     </div>
 </form>
