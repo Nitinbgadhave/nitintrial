@@ -193,23 +193,64 @@ document.getElementById('EmpID').addEventListener('blur', function() {
 //   };
 //   reader.readAsDataURL(file);
 // }
+
+
+// image preview
 function previewImage(event) {
   var preview = document.getElementById('preview');
   preview.style.display = "block";
   preview.src = URL.createObjectURL(event.target.files[0]);
 
-  new Compressor(event.target.files[0], {
-    quality: 0.6, // Adjust quality as needed
-    success(result) {
-      var reader = new FileReader();
-      reader.onloadend = function () {
-        var base64data = reader.result.split(',')[1];
-        document.getElementById('imageBase64').value = base64data;
-      };
-      reader.readAsDataURL(result);
-    },
-    error(err) {
-      console.error(err.message);
-    },
+  var file = event.target.files[0];
+  var maxSize = 1024; // Maximum image size in KB
+  compressImage(file, maxSize, function (compressedFile) {
+    convertImageToBase64(compressedFile, function (base64) {
+      document.getElementById('imageBase64').value = base64;
+    });
   });
+}
+
+function convertImageToBase64(file, callback) {
+  var reader = new FileReader();
+  reader.onloadend = function () {
+    var base64data = reader.result.split(',')[1];
+    callback(base64data);
+  };
+  reader.readAsDataURL(file);
+}
+
+function compressImage(file, maxSize, callback) {
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    var img = new Image();
+    img.src = event.target.result;
+    img.onload = function () {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      var maxWidth = 800;
+      var maxHeight = 600;
+      var width = img.width;
+      var height = img.height;
+
+      if (width > height) {
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }
+      } else {
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(function (blob) {
+        callback(new File([blob], file.name));
+      }, 'image/jpeg', 0.7); // 0.7 is the image quality
+    };
+  };
+  reader.readAsDataURL(file);
 }
