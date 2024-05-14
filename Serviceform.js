@@ -174,28 +174,8 @@ document.getElementById('EmpID').addEventListener('blur', function() {
   .catch(error => console.error('Error:', error));
   });
   
-// // image preview
-// function previewImage(event) {
-//   var preview = document.getElementById('preview');
-//   preview.style.display = "block";
-//   preview.src = URL.createObjectURL(event.target.files[0]);
 
-//   convertImageToBase64(event.target.files[0], function (base64) {
-//       document.getElementById('imageBase64').value = base64;
-//   });
-// }
-
-// function convertImageToBase64(file, callback) {
-//   var reader = new FileReader();
-//   reader.onloadend = function () {
-//       var base64data = reader.result.split(',')[1];
-//       callback(base64data);
-//   };
-//   reader.readAsDataURL(file);
-// }
-
-
-// image preview
+// image preview & auto compress
 function previewImage(event) {
   var preview = document.getElementById('preview');
   preview.style.display = "block";
