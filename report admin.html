@@ -211,7 +211,7 @@
   </script>
    <script>
     document.getElementById('showBalancesBtn').addEventListener('click', async () => {
-        const response = await fetch('https://localhost:7174/api/CDTransactions/AllEngineersBalance');
+        const response = await fetch('https://114.143.65.90:8433/api/CDTransactions/AllEngineersBalance');
         const data = await response.json();
         localStorage.setItem('engineerBalances', JSON.stringify(data));
         window.location.href = './AllEngineersBalance.html'; // Redirect to the page where the balances will be displayed
