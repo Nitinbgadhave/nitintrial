@@ -174,8 +174,7 @@ document.getElementById('EmpID').addEventListener('blur', function() {
   .catch(error => console.error('Error:', error));
   });
   
-
-// image preview & auto compress
+// image preview
 function previewImage(event) {
   var preview = document.getElementById('preview');
   preview.style.display = "block";
