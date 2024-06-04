@@ -25,9 +25,9 @@
             <img src="./sil.png" alt="Company Logo">
         </header>
         <Center><h2>Services Report</h2></Center>
-        <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbyP1SVDTax1k4ux3DE73WXe-soTrxfNdHJBCahO5LFfbuwMAiisdDWI0j7_EGXHl7XEwA/exec"> Success image  -->
-                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycby9x5_bbidPuxkssDp8z47iTKytMvap8H-L0NuhECkxBR6zJQpiWQU-3ha-YxrL6PfI/exec">   -->
-                    <form method="POST" action="https://script.google.com/macros/s/AKfycbxMUYzASuI9-Wz4BGikAuG24lRCo9w66L4VIZsn7GjyuM50a_DqDdqbXk7T12CqyYQHBQ/exec">
+        
+                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbw4971a1BTNeUt-2ALHpaRI3zlGVfxhiETBXfMenmuN7ZU-u-tSXODU8i_e8l6KAcK9QQ/exec">   -->
+                    <form method="POST" action="https://script.google.com/macros/s/AKfycbw4971a1BTNeUt-2ALHpaRI3zlGVfxhiETBXfMenmuN7ZU-u-tSXODU8i_e8l6KAcK9QQ/exec">
                 <div class="form-group">
                     <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
                     <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
@@ -52,6 +52,7 @@
                     <option value="Ecat sheet Cutting">Ecat sheet Cutting</option>
                     <option value="Backhoff sheet Cutting">Backhoff sheet Cutting</option>
                     <option value="Fanuc sheet Cutting">Fanuc sheet Cutting</option>
+                    <option value="FS Cut">FS Cut</option>
                     <option value="3 Chuck tube Cutting">3 Chuck tube Cutting</option>
                     <option value="2 Chuck tube Cutting">2 Chuck tube Cutting</option>
                     <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
@@ -141,8 +142,23 @@
             <option value="On Hold">On Hold</option>
             <option value="Cancelled">Cancelled</option>
         </select>
+        
         <input type="hidden" id="Token Number" name="Token Number">
     </div>
+    <div class="form-group">
+        <label for="Partuse">Part Use<span class="mandatory"></span>:</label>
+        <textarea id="Partuse" name="Partuse" rows="6" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="PartuseStatus">Part Status<span class="mandatory"></span>:</label>
+        <select id="PartuseStatus" name="PartuseStatus" required>
+            <option value="">Select Status</option>
+            <option value="FOCs">FOC</option>
+            <option value="Settlement">Settlement</option>
+            <option value="Chargeble">Chargeble</option>
+            <option value="Other">Other</option>
+        </select>
+     </div>
     <div class="form-group">
         <label for="Customer Feedback">Customer Feedback:</label>
         <textarea id="Customer Feedback" name="Customer Feedback" rows="7" ></textarea>
