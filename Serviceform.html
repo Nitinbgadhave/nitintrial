@@ -26,8 +26,7 @@
         </header>
         <Center><h2>Services Report</h2></Center>
         
-                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbw4971a1BTNeUt-2ALHpaRI3zlGVfxhiETBXfMenmuN7ZU-u-tSXODU8i_e8l6KAcK9QQ/exec">   -->
-                    <form method="POST" action="https://script.google.com/macros/s/AKfycbw4971a1BTNeUt-2ALHpaRI3zlGVfxhiETBXfMenmuN7ZU-u-tSXODU8i_e8l6KAcK9QQ/exec">
+                 <form method="POST" action="https://script.google.com/macros/s/AKfycbw8zXxN1KCbtEQC513WLDklNadX1-dHajok_NMhXgoRZ_KH6LTbyiEc2XeevQxSirPN9g/exec">  
                 <div class="form-group">
                     <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
                     <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
@@ -146,17 +145,19 @@
         <input type="hidden" id="Token Number" name="Token Number">
     </div>
     <div class="form-group">
-        <label for="Partuse">Part Use<span class="mandatory"></span>:</label>
-        <textarea id="Partuse" name="Partuse" rows="6" required></textarea>
+        <label for="SpareUse">Spare Use<span class="mandatory"></span>:</label>
+        <textarea id="SpareUse" name="SpareUse" rows="6" required></textarea>
     </div>
     <div class="form-group">
-        <label for="PartuseStatus">Part Status<span class="mandatory"></span>:</label>
-        <select id="PartuseStatus" name="PartuseStatus" required>
+        <label for="SpareusedIN">Spare used In<span class="mandatory"></span>:</label>
+        <select id="SpareusedIN" name="SpareusedIN" required>
             <option value="">Select Status</option>
             <option value="FOCs">FOC</option>
             <option value="Settlement">Settlement</option>
             <option value="Chargeble">Chargeble</option>
+            <option value="Returnable">Returnable</option>
             <option value="Other">Other</option>
+            <option value="--NA--">--NA--</option>
         </select>
      </div>
     <div class="form-group">
@@ -168,14 +169,6 @@
         <textarea id="Customer Name Seal & Sign" name="Customer Name Seal & Sign" rows="4" ></textarea>
         
     </div>
-    
-    
-<!-- / -->
-<!-- This is an image element with an empty src and alt attribute -->
-<!-- <img src="" alt=""> -->
-<!-- This is a script tag, which contains JavaScript code -->
-
-<!-- <input type="file" id="imageUpload" onchange="previewImage(event)" accept="image/*"> -->
 <label for="customerSealSign">Customer Name Seal & Sign:</label>
 
 <input type="file" id="imageUpload" onchange="previewImage(event)" accept="image/*" capture="camera">
