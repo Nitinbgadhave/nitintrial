@@ -7,57 +7,71 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 <style>
-    .container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+   /* Reset default browser styles */
+body, h1, h2, h3, p, ul, ol, li, form, fieldset, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
-.form-container {
-    width: 50%;
-    padding: 10px;
-}
-
-#transactions-table {
-    width: 100%;
-}
-
-/* Add any additional styling you need for your forms */
-.container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.form-container {
-    width: 48%; /* Adjust as needed */
-    margin-bottom: 20px; /* Add space between forms */
-    padding: 10px;
-    border: 1px solid #ccc; /* Add a border for better separation */
-    border-radius: 5px; /* Optional: Add border radius for rounded corners */
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-.form-group {
-    margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-}
-
-input[type="text"],
-select {
-    width: calc(100% - 20px); /* Adjust width as needed */
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+/* Set box-sizing to border-box for all elements */
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
+/* Set font properties */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Container styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Form container styles */
+.form-container {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Form group styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Label styles */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Input styles */
+input[type="text"],
+select,
+textarea,
 button {
-    padding: 8px 20px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -69,50 +83,85 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Transaction table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Highlight styles */
+.highlight-green {
+    background-color: lightgreen;
+}
+
+.highlight-yellow {
+    background-color: yellow;
+    padding: 5px;
+    display: inline-block;
+}
+
+/* Date input container styles */
+.date-input-container {
+    margin-bottom: 20px;
+}
+
+.date-input-container label,
+.date-input-container input {
+    display: block;
+}
+
+.date-input-container label {
+    margin-bottom: 5px;
+}
+
+/* Filter button styles */
+#filter-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+/* Export button styles */
+#export-pdf-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 /* Center button text */
 button span {
     vertical-align: middle;
 }
 
-/* transaction table */
-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .form-container {
+        width: 100%;
+    }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-        /* Tranasction highlight*/
-        .highlight-green {
-    background-color: lightgreen;
+    .form-container button {
+        width: 100%;
+    }
 }
-/* Balance highlight*/
-.highlight-yellow {
-    background-color: yellow;
-    padding: 5px;
-    display: inline-block; /* Ensures the background color only covers the content */
-}
-.date-input-container label,
-    .date-input-container input {
-        display: inline-block;
-        vertical-align: middle;
-    }
 
-    .date-input-container label {
-        margin-right: 10px; /* Adjust as needed */
-    }
-    
-    #filter-button {
-        margin-right: 20px; /* Adjust as needed */
-    }
 </style>
 </head>
 <body>
@@ -381,6 +430,8 @@ async function renderTransactions(empid) {
         let balance = transaction.currentBalance || 0;
         row.innerHTML = `
         <td>${new Date(transaction.date).toLocaleDateString('en-GB')}</td>
+
+
             <td>${transaction.notes}</td>
             <td>${credit > 0 ? '' : new Date(transaction.visitDate).toLocaleDateString('en-GB')}</td>
             <td>${transaction.referenceNumber}</td>
