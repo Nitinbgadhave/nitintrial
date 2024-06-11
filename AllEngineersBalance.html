@@ -27,9 +27,9 @@
         <div id="engineerBalances" class="table-responsive"></div>
         
         <div class="text-center mt-3">
-            <button id="exportExcelBtn" class="btn btn-primary">Export to Excel</button>
-            <button id="exportPdfBtn" class="btn btn-primary">Export to PDF</button>
-            <button id="backButton" onclick="goBack()" class="btn btn-primary"><i class="material-icons"></i>Go To Dashboard</button>
+            <button id="exportExcelBtn" class="btn btn-primary mb-2">Export to Excel</button>
+            <button id="exportPdfBtn" class="btn btn-primary mb-2">Export to PDF</button>
+            <button id="backButton" onclick="goBack()" class="btn btn-primary mb-2"><i class="material-icons"></i>Go To Dashboard</button>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
                 .then(engineerBalances => {
                     if (Array.isArray(engineerBalances)) {
                         const engineerBalancesHtml = engineerBalances.map(engineer => `<tr><td>${engineer.employeeID}</td><td>${engineer.employeeName}</td><td>${engineer.balance}</td></tr>`).join('');
-                        document.getElementById('engineerBalances').innerHTML = `<table class="table"><thead><tr><th>Employee ID</th><th>Employee Name</th><th>Available Balance</th></tr></thead><tbody>${engineerBalancesHtml}</tbody></table>`;
+                        document.getElementById('engineerBalances').innerHTML = `<table class="table table-bordered"><thead><tr><th>Employee ID</th><th>Employee Name</th><th>Available Balance</th></tr></thead><tbody>${engineerBalancesHtml}</tbody></table>`;
                     } else {
                         document.getElementById('engineerBalances').innerHTML = 'No engineer balances found.';
                     }
