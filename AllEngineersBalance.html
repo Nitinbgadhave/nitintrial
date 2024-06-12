@@ -19,11 +19,21 @@
         th {
             background-color: #f2f2f2;
         }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">All Engineer's Balance</h1>
+        <h1 class="text-center my-4">All Engineer's Balance</h1>
         <div id="engineerBalances" class="table-responsive"></div>
         
         <div class="text-center mt-3">
@@ -44,7 +54,7 @@
                 .then(engineerBalances => {
                     if (Array.isArray(engineerBalances)) {
                         const engineerBalancesHtml = engineerBalances.map(engineer => `<tr><td>${engineer.employeeID}</td><td>${engineer.employeeName}</td><td>${engineer.balance}</td></tr>`).join('');
-                        document.getElementById('engineerBalances').innerHTML = `<table class="table table-bordered"><thead><tr><th>Employee ID</th><th>Employee Name</th><th>Available Balance</th></tr></thead><tbody>${engineerBalancesHtml}</tbody></table>`;
+                        document.getElementById('engineerBalances').innerHTML = `<table class="table table-bordered table-striped"><thead><tr><th>Employee ID</th><th>Employee Name</th><th>Available Balance</th></tr></thead><tbody>${engineerBalancesHtml}</tbody></table>`;
                     } else {
                         document.getElementById('engineerBalances').innerHTML = 'No engineer balances found.';
                     }
