@@ -1,476 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fetch Data and Populate Form</title>
+
+    <meta charset="UTF-8">
+    <title>Services Engineer Page</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.0.5/dist/compressor.min.js"></script>
 
     <style>
-        /* Reset default browser styles */
-body, h1, h2, h3, p, ul, ol, li, form, fieldset, input, textarea, button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-/* Set box-sizing to border-box for all elements */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-/* Set font properties */
-body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-/* Container styles */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Form container styles */
-.form-container {
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-/* Form group styles */
-.form-group {
-    margin-bottom: 20px;
-}
-
-/* Label styles */
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-/* Input styles */
-input[type="text"],
-select,
-textarea,
-button {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Button styles */
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Transaction table styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-/* Highlight styles */
-.highlight-green {
-    background-color: lightgreen;
-}
-
-.highlight-yellow {
-    background-color: yellow;
-    padding: 5px;
-    display: inline-block;
-}
-
-/* Date input container styles */
-.date-input-container {
-    margin-bottom: 20px;
-}
-
-.date-input-container label,
-.date-input-container input {
-    display: block;
-}
-
-.date-input-container label {
-    margin-bottom: 5px;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 480px) {
-    .form-container {
-        width: 100%;
-    }
-
-    .form-container button {
-        width: 100%;
-    }
-}
-       
+            #preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+            display: none;
+        }
     </style>
-</head>
+    <link rel="stylesheet" href="./Serviceform.css">
+  </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6" style="float: left; width: 25%; margin-right: 100px;">
-            <div style="border: 1px solid #ccc; padding: 20px;">
-                <center><h1>Admin Credit</h1></center>
-                <!-- Admin Credit form fields -->
-                <label for="name">Name<span style="color: red;">*</span>:</label>
-                <input type="text" id="name" name="name" required>
-                <button id="searchBtn">
-                    <span class="material-icons"></span>Search
-                </button>
+    <div class="container">
 
-                <div id="nameList"></div>
-
-                <form id="addRecordForm">
-                    <label for="employeeId">Employee ID<span style="color: red;">*</span>:</label>
-                    <input type="number" id="employeeId" name="employeeId" readonly><br>
-                    <label for="EmployeeName">Engineer Name<span style="color: red;">*</span>:</label>
-                    <input type="text" id="EmployeeName" name="EmployeeName" readonly><br>
-                    <!-- <label for="note">Description<span style="color: red;">*</span>:</label>
-                    <input type="text" id="note" name="note" required><br> -->
-                    <div class="form-group" style="padding-bottom: 20px;">
-                        <label for="note">Description<span style="color: red;">*</span>:</label>
-                        <textarea id="note" name="note" style="width: 97%; height: 100px;" required></textarea>
-                    </div>
-                    <label for="creditTransaction">Credit Transaction<span style="color: red;">*</span>:</label>
-                    <input type="text" id="creditTransaction" name="creditTransaction" required>
-                    <button id="setCreditButton">
-                        <span class="material-icons"></span> Credit
-                    </button>
-                    
-                    <span style="margin: 0 40px;"></span>
-                    <button id="allEngineerHistoryButton">All Engineer Transaction History</button><br><br>
-                    <button id="backButton" onclick="goBack()"><i class="material-icons">arrow_back</i>Go Back</button>
-
-                </form>
+        <header>
+            <img src="./sil.png" alt="Company Logo">
+        </header>
+        <Center><h2>Services Report</h2></Center>
+        
+                 <form method="POST" action="https://script.google.com/macros/s/AKfycbx_udt3MhPaIpoXzODjChar-1KXO7CmglDQI_k9pgf5bVrfyxdRRbRfH6LGikbqMh3zoQ/exec">  
+                <div class="form-group">
+                    <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
+                    <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
+                </div>                    
+                <div class="form-group">
+                    <label for="Engineer Name">Engineer Name<span class="mandatory"></span>:</label>
+                    <input type="text" id="Engineer Name" name="Engineer Name"  required>
+                </div>
+            <div class="form-group">
+                <label for="Company Name">Company Name<span class="mandatory"></span>:</label>
+                <input type="text" id="Company Name" name="Company Name" required>
             </div>
-        </div>
-        <div class="col-md-6" style="float: right; width: 50%; margin-left: 10px;">
-            <div style="border: 1px solid #ccc; padding: 20px;">
-                <h1>Previous Transactions Details</h1>
-                <div id="balance"></div>
-                <table id="transactions-table">
-                    <!-- Previous Transactions table -->
-                    <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Visit Date</th>
-                        <th>Reference Number</th>
-                        <th>Credit</th>
-                        <th>Debit</th>
-                        <th>Balance</th>
-                    </tr>
-                    </thead>
-                    <tbody id="transactions-body">
-                    </tbody>
-                </table>
-                <label for="startDate"><b>Start Date:</b></label>
-                <input type="date" id="startDate" name="startDate">
-                <br>
-                <label for="endDate"><b>End Date:</b></label>
-                <input type="date" id="endDate" name="endDate">
-                <br><br>
-                
-                <button id="filterButton">Filter</button>
-                <button id="exportPDFButton">Export as PDF</button>
-                <button id="exportXLSXButton">Export as XLSX</button>
-
+            <div class="form-group">
+                <label for="Company Address">Company Address<span class="mandatory"></span>:</label>
+                <textarea id="Company Address" name="Company Address" rows="4" ></textarea>
+                <!-- <input type="text" id="Company Address" name="Company Address" required> -->
             </div>
+            <div class="form-group">
+                <label for="Select Machine Type">Select Machine Type<span class="mandatory"></span>:</label>
+                <select id="Select Machine Type" name="Select Machine Type" onchange="showMachineCodeInput()" required>
+                    <option value="">Select Machine Type</option>
+                    <option value="Ecat sheet Cutting">Ecat sheet Cutting</option>
+                    <option value="Backhoff sheet Cutting">Backhoff sheet Cutting</option>
+                    <option value="Fanuc sheet Cutting">Fanuc sheet Cutting</option>
+                    <option value="FS Cut">FS Cut</option>
+                    <option value="3 Chuck tube Cutting">3 Chuck tube Cutting</option>
+                    <option value="2 Chuck tube Cutting">2 Chuck tube Cutting</option>
+                    <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
+                    <option value="Welding Machine">Welding Machine</option>
+                    <option value="Marking Machine">Marking Machine</option>
+                    <option value="Laser Cutting">Laser Cutting</option>
+                    <option value="Ingraver Machine">Ingraver Machine</option>
+                    <option value="Router Machine">Router Machine</option>
+                    <option value="Robot Cutting / Welding">Robot Cutting / Welding</option>
+                    <option value="SPM">SPM</option>
+                    <option value="Other">Other</option>
+                    <!-- Add more machine types as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Select Service Type">Select Service Type<span class="mandatory"></span>:</label>
+                <select id="Select Service Type" name="Select Service Type" onchange="showServiceCodeInput()" required>
+                    <option value="">Select Service Type</option>
+                    <option value="In warranty">In warranty</option>
+                    <option value="Out of Warrenty">Out of Warranty(Paid Service)</option>
+                    <option value="Out of Warrenty">Out of Warranty(Free of Cost)</option>
+                    <option value="AMC">AMC</option>
+                    <option value="Preventive Maintainance Visit">Preventive Maintainance Visit</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>          
+            <div class="form-group">
+                <label for="Machine Serial Number">Machine Serial Number<span class="mandatory"></span>:</label>
+                <input type="text" id="Machine Serial Number" name="Machine Serial Number" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="Start-Date">Start Date<span class="mandatory"></span>:</label>
+                <input type="date" id="Start-Date" name="Start-Date" required>
+            </div>
+            <div class="form-group">
+                <label for="End-Date">End Date<span class="mandatory"></span>:</label>
+                <input type="date" id="End-Date" name="End-Date" required>
+            </div>
+            <div id="workingDays"></div><br><br>
+            <div class="form-group">
+                <label for="Total-Working-Days"> Number of Working Days<span class="mandatory"></span>:</label>
+                <input type="number" id="Total-Working-Days" name="Total-Working-Days" min="1" step="1" required>
+            </div>
+            <label for="selectArea">Select Area<span class="mandatory"></span>:</label>
+            <div class="custom-dropdown">
+                <div id="dropdownContent" class="dropdown-content">
+                    <label><input type="checkbox" id="checkbox_MACHINE" value="MACHINE" onchange="updateSelectedAreas()"> MACHINE</label><br>
+                    <label><input type="checkbox" id="checkbox_PALLET_SYSTEM" value="PALLET_SYSTEM" onchange="updateSelectedAreas()"> PALLET_SYSTEM</label><br>
+                    <label><input type="checkbox" id="checkbox_CUTTING_HEAD" value="CUTTING_HEAD" onchange="updateSelectedAreas()"> CUTTING_HEAD</label><br>
+                    <label><input type="checkbox" id="checkbox_SOFTWARE" value="SOFTWARE" onchange="updateSelectedAreas()"> SOFTWARE</label><br>
+                    <label><input type="checkbox" id="checkbox_LASER" value="LASER" onchange="updateSelectedAreas()"> LASER</label><br>
+                    <label><input type="checkbox" id="checkbox_CHILLER" value="CHILLER" onchange="updateSelectedAreas()"> CHILLER</label><br>
+                    <label><input type="checkbox" id="checkbox_EXHAUST_SUCTION" value="EXHAUST_SUCTION" onchange="updateSelectedAreas()"> EXHAUST_SUCTION</label><br>
+                    <label><input type="checkbox" id="checkbox_NESTING_SOFTWARE" value="NESTING_SOFTWARE" onchange="updateSelectedAreas()"> NESTING_SOFTWARE</label><br>
+                    <label><input type="checkbox" id="checkbox_CUTTING_APPLICATIONS" value="CUTTING_APPLICATIONS" onchange="updateSelectedAreas()"> CUTTING_APPLICATIONS</label><br>
+                    <label><input type="checkbox" id="checkbox_OTHER_TYPE_ISSUES" value="OTHER_TYPE_ISSUES" onchange="updateSelectedAreas()"> OTHER_TYPE_ISSUES</label><br>
+                                <!-- Add other checkboxes here -->
+                </div>
+            </div>
+    
+        <!-- Your form content here -->
+        <div id="problemSelection" style="display: none;">
+            <h3>Select Problems:</h3>
+            <div id="problems"></div>
         </div>
+        <input type="hidden" name="selectArea" id="selectArea">
+        <input type="hidden" name="selectedProblems" id="selectedProblems">
+        <!-- <button type="submit">Submit</button> -->
+    <!-- </form> -->
+    
+    
+    <div class="form-group">
+        <label for="Description">Description<span class="mandatory"></span>:</label>
+        <textarea id="Description" name="Description" rows="4" required></textarea>
     </div>
-</div>
+    <div class="form-group">
+        <label for="Diagnosis">Diagnosis<span class="mandatory"></span>:</label>
+        <textarea id="Diagnosis" name="Diagnosis" rows="2" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Status">Result<span class="mandatory"></span>:</label>
+        <select id="Status" name="Status" required>
+            <option value="">Select Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        
+        <input type="hidden" id="Token Number" name="Token Number">
+    </div>
+    <div class="form-group">
+        <label for="SpareParts">Spare Parts<span class="mandatory"></span>:</label>
+        <textarea id="SpareParts" name="SpareParts" rows="6" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="SparePartStatus">Spare Part status<span class="mandatory"></span>:</label>
+        <select id="SparePartStatus" name="SparePartStatus" required>
+            <option value="">Select Status</option>
+            <option value="FOCs">FOC</option>
+            <option value="Settlement">Settlement</option>
+            <option value="Chargeble">Chargeble</option>
+            <option value="Returnable">Returnable</option>
+            <option value="Other">Other</option>
+            <option value="--NA--">--NA--</option>
+        </select>
+     </div>
+    <div class="form-group">
+        <label for="Customer Feedback">Customer Feedback:</label>
+        <textarea id="Customer Feedback" name="Customer Feedback" rows="7" ></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Customer Name Seal & Sign">Customer Name Seal & Sign:</label>
+        <textarea id="Customer Name Seal & Sign" name="Customer Name Seal & Sign" rows="4" ></textarea>
+        
+    </div>
+<label for="customerSealSign">Customer Name Seal & Sign:</label>
 
+<input type="file" id="imageUpload" onchange="previewImage(event)" accept="image/*" capture="camera">
 
+<img id="preview" src="" alt="Image Preview" style="max-width: 200px; max-height: 200px; margin-top: 10px; display: none;">
+<input type="hidden" id="imageBase64" name="imageBase64">
 
-<script>
-document.getElementById("allEngineerHistoryButton").addEventListener("click", function() {
-    window.open("./Adminreport.html", "_blank");
-});
-
-// go back button
-function goBack() {
-    window.history.back();
-}
-
-</script>
-
-<script>
-
-document.getElementById('searchBtn').addEventListener('click', function () {
-    var name = document.getElementById('name').value;
-    if (name.length >= 3) { // Minimum characters required to start searching
-        fetch(`https://114.143.65.90:8433/api/CDTransactions/googlesheet/${name}`)
-            .then(response => response.json())
-            .then(data => {
-                var nameList = document.getElementById('nameList');
-                nameList.innerHTML = '';
-                if (data.length === 0) {
-                    alert('No data found for the entered name.'); // Display error message in a popup window
-                } else {
-                    data.forEach(function (employee) {
-                        var option = document.createElement('div');
-                        option.textContent = `(${employee.empID})${employee.firstName} ${employee.lastName}`; // Display the full name
-                        option.addEventListener('click', function () {
-                            var fullName = `${employee.firstName} ${employee.lastName}`;
-                            document.getElementById('EmployeeName').value = fullName;
-                            document.getElementById('employeeId').value = employee.empID;
-                            localStorage.setItem('EmployeeName', fullName); // Store the EmployeeName in local storage
-                            // Fill other form fields as needed
-                            nameList.innerHTML = '';
-                            renderTransactions(employee.empID, fullName); // Call renderTransactions with the selected employee ID and name
-                        });
-                        nameList.appendChild(option);
-                    });
+<br><br>
+    <div style="text-align: center;">
+        <button type="submit" id="submitButton" style="color: #ffffff; background-color: #4CAF50; padding: 10px 20px; font-size: 16px; float: left;">
+            <i class="material-icons">send</i> Submit
+        </button>
+        <a href="./select.html" id="dashboardLink" style="color: #ffffff; background-color: #d9534f; padding: 10px 20px; font-size: 16px; text-decoration: none; margin-left: 10px; float: right;">
+            <i class="material-icons">dashboard</i> Go To Dashboard
+        </a>
+        <div style="clear: both;"></div> <!-- Add a clearing element to prevent content overlap -->
+    
+        <script>
+            document.getElementById('submitButton').addEventListener('click', function (event) {
+                // Ask for permission before submitting
+                if (!confirm('Are you sure you want to submit?')) {
+                    event.preventDefault(); // Prevent the default submit action if the user declines
                 }
-            })
-            .catch(error => {
-                var nameList = document.getElementById('nameList');
-                nameList.innerHTML = 'Error fetching data. Please try again later.';
             });
-    }
-});
-
-
-async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
-    let url = `https://114.143.65.90:8433/api/CDTransactions/TransactionHistory/${employeeId}`;
-    if (startDate && endDate) {
-        url += `?startDate=${startDate}&endDate=${endDate}`;
-    }
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-}
-
-document.getElementById('filterButton').addEventListener('click', function () {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const employeeId = document.getElementById('employeeId').value;
-
-    if (startDate && endDate) {
-        renderTransactions(employeeId, startDate, endDate);
-    } else {
-        alert('Please select both start and end dates.');
-    }
-});
-
-
-async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
-    let url = `https://114.143.65.90:8433/api/CDTransactions/TransactionHistory/${employeeId}`;
-    if (startDate && endDate) {
-        url += `?startDate=${startDate}&endDate=${endDate}`;
-    }
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-}
-
-document.getElementById('setCreditButton').addEventListener('click', async function (event) {
-    event.preventDefault(); // Prevent the form from submitting
-
-    var employeeId = document.getElementById('employeeId').value;
-    var employeeName = document.getElementById('EmployeeName').value;
-    var note = document.getElementById('note').value;
-    var creditTransaction = document.getElementById('creditTransaction').value;
-
-    if (!employeeId || !employeeName || !note || !creditTransaction) {
-        alert('Please fill out all required fields.'); // Display an alert if any required field is empty
-        return;
-    }
-
-    // Create a JSON object with the form data
-    var formData = {
-        EmployeeID: employeeId,
-        EmployeeName: employeeName,
-        Notes: note,
-        CreditTransaction: creditTransaction,
-    };
-
-    // Send a POST request to your API endpoint
-    fetch('https://114.143.65.90:8433/api/CDTransactions/AddTransaction', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Parse the JSON response
-            } else {
-                throw new Error('Failed to save record');
+    
+            document.getElementById('dashboardLink').addEventListener('click', function (event) {
+                // Ask for permission before navigating to the dashboard
+                if (!confirm('Are you sure you want to go to the dashboard?')) {
+                    event.preventDefault(); // Prevent the default link action if the user declines
+                }
+            });
+        </script>
+        <script>
+            function previewImage(event) {
+                var preview = document.getElementById('preview');
+                preview.style.display = "block";
+                preview.src = URL.createObjectURL(event.target.files[0]);
             }
-        })
-        .then(async data => {
-            alert('Record saved successfully. Reference Number: ' + data.referenceNumber);
-            var addRecordForm1 =                                                               document.getElementById('addRecordForm'); // Reset the form
-            addRecordForm1.reset();
-
-            // Update transaction history
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            await renderTransactions(employeeId, startDate, endDate);
-        })
-        .catch(error => {
-            alert('Error: ' + error.message);
-        });
-});
-
-async function renderTransactions(employeeId, startDate, endDate) {
-    const data = await fetchTransactionsByEmployee(employeeId, startDate, endDate);
-    const transactions = data.transactions;
-    let totalBalance = data.balance || 0;
-    const employeeName = localStorage.getItem('EmployeeName') || '';
-
-    const balanceDiv = document.getElementById("balance");
-    balanceDiv.innerHTML = `<div style="text-align: center; margin-bottom: 10px;"> <strong>Engineer Name:</strong> <strong>${employeeName}</strong> <br><br> <strong>Employee ID:</strong> <strong>${employeeId}</strong></div>
-                     <div style="text-align: right;"><span class="highlight-yellow">Total Balance: ${totalBalance}</span></div>`;
-
-    balanceDiv.style.textAlign = "right";
-
-    const tableBody = document.getElementById("transactions-body");
-    tableBody.innerHTML = "";
-
-    transactions.forEach((transaction, index) => {
-        const row = document.createElement("tr");
-        const credit = transaction.creditTransaction || 0;
-        const debit = transaction.debitTransaction || 0;
-        let balance = transaction.currentBalance || 0;
-
-        // Check if the transaction is a credit transaction and if visitDate is minimum value
-        if (credit > 0 && new Date(transaction.visitDate).getTime() === new Date(0).getTime()) {
-            return; // Skip this row if it's a credit transaction with a minimum visitDate
-        }
-
-        row.innerHTML = `
-        <td>${new Date(transaction.date).toLocaleDateString('en-GB')}</td>
-            <td>${transaction.notes}</td>
-            <td>${credit > 0 ? '' : new Date(transaction.visitDate).toLocaleDateString('en-GB')}</td>
-            <td>${transaction.referenceNumber}</td>
-            <td>${credit}</td>
-            <td>${debit}</td>
-            <td>${balance}</td>
-        `;
-
-        if (index === 0) {
-            row.classList.add("highlight-green");
-        }
-
-        tableBody.appendChild(row);
-    });
-}
-
-
-
-
-document.getElementById('exportPDFButton').addEventListener('click', function () {
-    const engineerName = localStorage.getItem('EmployeeName') || '';
-    const employeeId = document.getElementById('employeeId').value;
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const totalBalance = document.querySelector('.highlight-yellow').textContent.split(': ')[1];
-
-    const content = `
-        <strong>
-            <div style="text-align: center;">
-                <h1>Account Statement</h1>
-                <span>Engineer Name: ${engineerName}</span><br><br>
-                <span>Employee ID: ${employeeId}</span><br><br>
-                <span>Account Statement: From ${startDate} To ${endDate}</span><br><br>
-                <span>Inhand Balance: ${totalBalance}</span>
-            </div>
-        </strong>
-        <br><br>
-        ${document.getElementById('transactions-table').outerHTML}
-    `;
-
-    const fileName = `${engineerName.replace(' ', '_')}_${employeeId}.pdf`;
-
-    const options = {
-        filename: fileName,
-        jsPDF: { format: 'a4' },
-        html2canvas: { scale: 2 },
-        margin: [10, 10, 10, 10], // top, left, bottom, right
-        pagebreak: { mode: ['css', 'legacy'] }
-    };
-
-    html2pdf().set(options).from(content).toPdf().get('pdf').then(function (pdf) {
-        pdf.save(fileName);
-    });
-});
-
-
-
-document.getElementById('exportXLSXButton').addEventListener('click', function () {
-    const engineerName = localStorage.getItem('EmployeeName') || '';
-    const employeeId = document.getElementById('employeeId').value;
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const totalBalance = document.querySelector('.highlight-yellow').textContent.split(': ')[1];
-
-    const data = [
-        ['Account Statement'],
-        ['Engineer Name:', engineerName],
-        ['Employee ID:', employeeId],
-        ['Account Statement:', `From ${startDate} To ${endDate}`],
-        ['Inhand Balance:', totalBalance],
-        [],
-        ['Date', 'Notes', 'Visit Date', 'Reference Number', 'Credit', 'Debit', 'Balance']
-    ];
- 
-    const table = document.getElementById('transactions-table');
-    const rows = table.querySelectorAll('tr');
-    rows.forEach(row => {
-        const rowData = [];
-        row.querySelectorAll('td').forEach(cell => {
-            rowData.push(cell.textContent);
-        });
-        data.push(rowData);
-    });
-
-    const ws = XLSX.utils.aoa_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    const fileName = `${engineerName.replace(' ', '_')}_${employeeId}.xlsx`;
-
-    XLSX.writeFile(wb, fileName);
-});
-
-</script>
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
+        
+    <script>
+            function uploadImage() {
+                if (cropper) {
+                    var canvas = cropper.getCroppedCanvas();
+                    var imageData = canvas.toDataURL('image/jpeg'); // you can also use 'image/png'
+                    // Upload imageData to your server
+                    // Reset the form or perform any other actions needed
+                    document.getElementById('preview').style.display = 'none';
+                    cropper.destroy();
+                }
+            }
+        </script>
+    </div>
+    </div>
+</form>
+</div>
+<script src="./Serviceform.js"></script>
 </body>
 </html>
