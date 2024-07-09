@@ -233,3 +233,14 @@ function compressImage(file, maxSize, callback) {
   };
   reader.readAsDataURL(file);
 }
+
+// remove white spaces
+function toUpperCaseAndRemoveWhitespace(event) {
+  // Convert to uppercase and remove whitespace
+  event.target.value = event.target.value.toUpperCase().replace(/\s+/g, '');
+}
+
+//convert UpperCase
+function toUpperCaseInput(event) {
+  event.target.value = event.target.value.toUpperCase();
+}

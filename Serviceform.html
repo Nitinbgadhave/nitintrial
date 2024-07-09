@@ -35,25 +35,28 @@
                     <label for="Engineer Name">Engineer Name<span class="mandatory"></span>:</label>
                     <input type="text" id="Engineer Name" name="Engineer Name"  required>
                 </div>
+         
+                 </head>
+        <body>
             <div class="form-group">
                 <label for="Company Name">Company Name<span class="mandatory"></span>:</label>
-                <input type="text" id="Company Name" name="Company Name" required>
+                <input type="text" id="Company Name" name="Company Name" oninput="toUpperCaseInput(event)" required>
             </div>
             <div class="form-group">
                 <label for="Company Address">Company Address<span class="mandatory"></span>:</label>
-                <textarea id="Company Address" name="Company Address" rows="4" ></textarea>
+                <textarea id="Company Address" name="Company Address" rows="4"oninput="toUpperCaseInput(event)" ></textarea>
                 <!-- <input type="text" id="Company Address" name="Company Address" required> -->
             </div>
             <div class="form-group">
                 <label for="Select Machine Type">Select Machine Type<span class="mandatory"></span>:</label>
                 <select id="Select Machine Type" name="Select Machine Type" onchange="showMachineCodeInput()" required>
                     <option value="">Select Machine Type</option>
-                    <option value="Ecat sheet Cutting">Ecat sheet Cutting</option>
-                    <option value="Backhoff sheet Cutting">Backhoff sheet Cutting</option>
-                    <option value="Fanuc sheet Cutting">Fanuc sheet Cutting</option>
+                    <option value="Ecat Sheet Cutting">Ecat sheet Cutting</option>
+                    <option value="Backhoff Sheet Cutting">Backhoff sheet Cutting</option>
+                    <option value="Fanuc Sheet Cutting">Fanuc sheet Cutting</option>
                     <option value="FS Cut">FS Cut</option>
-                    <option value="3 Chuck tube Cutting">3 Chuck tube Cutting</option>
-                    <option value="2 Chuck tube Cutting">2 Chuck tube Cutting</option>
+                    <option value="3 Chuck Tube Cutting">3 Chuck tube Cutting</option>
+                    <option value="2 Chuck Tube Cutting">2 Chuck tube Cutting</option>
                     <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
                     <option value="Welding Machine">Welding Machine</option>
                     <option value="Marking Machine">Marking Machine</option>
@@ -80,7 +83,7 @@
             </div>          
             <div class="form-group">
                 <label for="Machine Serial Number">Machine Serial Number<span class="mandatory"></span>:</label>
-                <input type="text" id="Machine Serial Number" name="Machine Serial Number" required>
+                <input type="text" id="Machine Serial Number" name="Machine Serial Number" oninput="toUpperCaseAndRemoveWhitespace(event)"" required>
             </div>
            
             <div class="form-group">
@@ -155,7 +158,7 @@
             <option value="FOCs">FOC</option>
             <option value="Settlement">Settlement</option>
             <option value="Chargeble">Chargeble</option>
-            <option value="Returnable">Returnable</option>
+            <option value="Returnable">Returnable</option>                                                                                       
             <option value="Other">Other</option>
             <option value="--NA--">--NA--</option>
         </select>
