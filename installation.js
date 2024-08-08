@@ -85,11 +85,7 @@ function submitForm(event) {
         descriptionsSet.add(descriptionValue);
     }
 
-    // // Proceed with form submission if no duplicates are found
-    // if (confirm("Are you sure you want to submit the form and download the PDF?")) {
-    //     // Your form submission logic here
-    //     alert("Form submitted successfully and PDF downloaded!");
-    // }
+   
 }
 
 // Function to hide placeholders
@@ -281,5 +277,15 @@ function submitForm(event) {
         console.error('Error submitting form:', error);
         alert("An error occurred while submitting the form. Please try again.");
     });
+   
+    function validateNumberInput(event) {
+        const input = event.target;
+        const pattern = /^[0-9]*$/;
+        if (!pattern.test(input.value)) {
+            input.setCustomValidity("Please enter only numbers.");
+        } else {
+            input.setCustomValidity("");
+        }
+    }
    
 }

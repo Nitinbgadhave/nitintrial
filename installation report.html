@@ -30,33 +30,27 @@
 
 <div class="report-details">
            <table>
+            <script>
+              function toUpperCaseInput(event) {
+                  event.target.value = event.target.value.toUpperCase();
+              }
+          </script>
       <tr>
         <td><label for="customer-name"> Customer Name*:</label></td>
-        <td><input type="text" placeholder="Enter Customer Name*" id="customer-name" name="customer-name" required required size="60" ></td>
+        <td><input type="text" placeholder="Enter Customer Name*" id="customer-name" name="customer-name" required required size="60" oninput="toUpperCaseInput(event)"></td>
         <td><label for="contact-person">Contact Person*:</label></td>
-        <td><input type="text" placeholder="Enter Contact Person*" id="contact-person" name="contact-person" required required size="60"></td>
+        <td><input type="text" placeholder="Enter Contact Person*" id="contact-person" name="contact-person" required required size="60" oninput="toUpperCaseInput(event)"></td>
       </tr>
       <tr>
-        <!-- <tr>              
-          <td colspan="2"><label for="Engineer-Name">Engineer Name*:</label></td>
-          <td colspan="2"><input type="text" placeholder="Enter Engineer Name*" id="Engineer-Name" name="Engineer-Name" required required size="100"></td>
-        </tr>
-          <tr>
-          <td colspan="2"><label for="City-Name">Address*:</label></td>
-          <td colspan="2"><input type="text" placeholder="Enter City Name*" id="City-Name" name="City-Name" required required size="150"></td>
-        </tr> -->
+        
         <tr>              
           <td colspan="4"><label for="Engineer-Name">Engineer Name*:
-          <input type="text" placeholder="Enter Engineer Name*" id="Engineer-Name" name="Engineer-Name" required required size="100"></td>
+          <input type="text" placeholder="Enter Engineer Name*" id="Engineer-Name" name="Engineer-Name" required required size="100" oninput="toUpperCaseInput(event)"></td>
         </tr>
-          <!-- <tr>
-          <td colspan="4"><label for="City-Name">Address*:
-          <input type="text" placeholder="Enter Company  Address*" id="City-Name" name="City-Name" required required size="150"></td>
-        </tr> -->
         <tr>
           <td colspan="4">
               <label for="City-Name">Address*:</label><br>
-              <textarea id="City-Name" name="City-Name" placeholder="Enter Company Address*" required rows="2" style="width: 100%;"></textarea>
+              <textarea id="City-Name" name="City-Name" placeholder="Enter Company Address*" required rows="2" style="width: 100%;" oninput="toUpperCaseInput(event)"></textarea>
           </td>
       </tr>
         <td><label for="Start-date">Start Date*:</label></td>
@@ -70,12 +64,16 @@
         <td><input type="text" placeholder="Enter Number of Working Days*" id="no-of-days" name="no-of-days" pattern="[0-9]*" required ></td>
       </tr>
 
-      
+      <script>
+        function toUpperCaseAndRemoveWhitespace(event) {
+            event.target.value = event.target.value.toUpperCase().replace(/\s/g, '');
+        }
+    </script>
       <tr>
         <td><label for="machine-model">Machine Model*:</label></td>
-        <td><input type="text" placeholder="Enter Machine-Model*" id="machine-model" name="machine-model" required required size="40"></td>
+        <td><input type="text" placeholder="Enter Machine-Model*" id="machine-model" name="machine-model" required required size="40"oninput="toUpperCaseAndRemoveWhitespace(event)" ></td>
         <td><label for="machine-Serial Number">Machine Serial Number*:</label></td>
-        <td><input type="text" placeholder="Enter Serial Number*" id="machine-Serial Number" name="machine-Serial Number" required ></td>
+        <td><input type="text" placeholder="Enter Serial Number*" id="machine-Serial Number" name="machine-Serial Number"oninput="toUpperCaseAndRemoveWhitespace(event)" required ></td>
       </tr>
       <tr>
         <td colspan="4" style="text-align: center;"><label for="machine-type">Machine Type*:</label></td>

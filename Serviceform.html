@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.0.5/dist/compressor.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
             #preview {
             max-width: 200px;
@@ -26,7 +26,8 @@
         </header>
         <Center><h2>Services Report</h2></Center>
         
-                 <form method="POST" action="https://script.google.com/macros/s/AKfycbw8zXxN1KCbtEQC513WLDklNadX1-dHajok_NMhXgoRZ_KH6LTbyiEc2XeevQxSirPN9g/exec">  
+                 <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbx_udt3MhPaIpoXzODjChar-1KXO7CmglDQI_k9pgf5bVrfyxdRRbRfH6LGikbqMh3zoQ/exec">   -->
+                    <form method="POST" action="https://script.google.com/macros/s/AKfycbx_udt3MhPaIpoXzODjChar-1KXO7CmglDQI_k9pgf5bVrfyxdRRbRfH6LGikbqMh3zoQ/exec">  
                 <div class="form-group">
                     <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
                     <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required>
@@ -38,15 +39,39 @@
          
                  </head>
         <body>
+           
+           
+      
             <div class="form-group">
-                <label for="Company Name">Company Name<span class="mandatory"></span>:</label>
-                <input type="text" id="Company Name" name="Company Name" oninput="toUpperCaseInput(event)" required>
+                <label for="CompanyName">Company Name<span class="mandatory">*</span>:</label>
+                <div class="input-group">
+                    <div class="input-wrapper" style="position: relative;">
+                        <input type="text" id="CompanyName" class="form-control" name="Company Name" oninput="toUpperCaseInput(event)" placeholder="Search Company Name" required style="padding-left: 30px;">
+                        <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
+                    </div>
+                    <div id="companyDropdown" class="dropdown-menu" style="display: none;"></div>
+                    <div id="companyError" class="error-message" style="display: none;">Company name not found. Please check the name and try again.</div>
+                </div>
             </div>
+            
+            <div class="form-group" id="OtherCompanyNameGroup" style="display: none;">
+                <label for="OtherCompanyName">Other Company Name<span class="mandatory">*</span>:</label>
+                <input type="text" id="OtherCompanyName" class="form-control" name="Other Company Name" >
+            </div>
+            
             <div class="form-group">
-                <label for="Company Address">Company Address<span class="mandatory"></span>:</label>
-                <textarea id="Company Address" name="Company Address" rows="4"oninput="toUpperCaseInput(event)" ></textarea>
-                <!-- <input type="text" id="Company Address" name="Company Address" required> -->
+                <label for="MachineSerialNumber">Machine Serial Number<span class="mandatory">*</span>:</label>
+                <div class="input-group">
+                    <input type="text" id="MachineSerialNumber" class="form-control" name="Machine Serial Number" readonly required placeholder="Select Machine Serial Number">
+                    <div id="machineDropdown" class="dropdown-menu" style="display: none;"></div>
+                </div>
             </div>
+            
+            <div class="form-group">
+                <label for="CompanyAddress">Company Address<span class="mandatory">*</span>:</label>
+                <textarea id="CompanyAddress" class="form-control" name="Company Address" rows="4" readonly required></textarea>
+            </div>
+            
             <div class="form-group">
                 <label for="Select Machine Type">Select Machine Type<span class="mandatory"></span>:</label>
                 <select id="Select Machine Type" name="Select Machine Type" onchange="showMachineCodeInput()" required>
@@ -81,10 +106,7 @@
                     <option value="Other">Other</option>
                 </select>
             </div>          
-            <div class="form-group">
-                <label for="Machine Serial Number">Machine Serial Number<span class="mandatory"></span>:</label>
-                <input type="text" id="Machine Serial Number" name="Machine Serial Number" oninput="toUpperCaseAndRemoveWhitespace(event)"" required>
-            </div>
+          
            
             <div class="form-group">
                 <label for="Start-Date">Start Date<span class="mandatory"></span>:</label>

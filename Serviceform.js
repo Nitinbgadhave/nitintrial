@@ -244,3 +244,232 @@ function toUpperCaseAndRemoveWhitespace(event) {
 function toUpperCaseInput(event) {
   event.target.value = event.target.value.toUpperCase();
 }
+function toUpperCaseInput(event) {
+  event.target.value = event.target.value.toUpperCase();
+  fetchCompanies(event.target.value);
+}
+// //company details 
+// function fetchCompanies(searchTerm) {
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?searchTerm=' + encodeURIComponent(searchTerm), true);
+//   xhr.onload = function() {
+//       if (xhr.status === 200) {
+//           var companies = JSON.parse(xhr.responseText);
+//           updateDropdown(companies);
+//       }
+//   };
+//   xhr.send();
+// }
+
+// function fetchMachineDetails(companyName) {
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?companyName=' + encodeURIComponent(companyName), true);
+//   xhr.onload = function() {
+//       if (xhr.status === 200) {
+//           var machineDetails = JSON.parse(xhr.responseText);
+//           updateMachineDropdown(machineDetails);
+//       }
+//   };
+//   xhr.send();
+// }
+
+// function fetchAddress(machineSerialNumber) {
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?machineSerialNumber=' + encodeURIComponent(machineSerialNumber), true);
+//   xhr.onload = function() {
+//       if (xhr.status === 200) {
+//           var addressDetails = JSON.parse(xhr.responseText);
+//           document.getElementById('CompanyAddress').value = addressDetails.address;
+//       }
+//   };
+//   xhr.send();
+// }
+
+// function updateDropdown(companies) {
+//   var dropdown = document.getElementById('companyDropdown');
+//   var errorDiv = document.getElementById('companyError');
+//   dropdown.innerHTML = '';
+//   if (companies.length > 0) {
+//       dropdown.style.display = 'block';
+//       errorDiv.style.display = 'none';
+//       companies.forEach(function(company) {
+//           var div = document.createElement('div');
+//           div.classList.add('dropdown-item');
+//           div.textContent = company;
+//           div.onclick = function() {
+//               document.getElementById('CompanyName').value = company;
+//               dropdown.style.display = 'none';
+//               fetchMachineDetails(company);
+//           };
+//           dropdown.appendChild(div);
+//       });
+//   } else {
+//       dropdown.style.display = 'none';
+//       errorDiv.style.display = 'block';
+//   }
+// }
+
+// function updateMachineDropdown(machineDetails) {
+//   var dropdown = document.getElementById('machineDropdown');
+//   dropdown.innerHTML = '';
+//   if (machineDetails.length === 1) {
+//       document.getElementById('MachineSerialNumber').value = machineDetails[0].serialNumber;
+//       fetchAddress(machineDetails[0].serialNumber);
+//       dropdown.style.display = 'none';
+//   } else if (machineDetails.length > 1) {
+//       dropdown.style.display = 'block';
+//       machineDetails.forEach(function(detail) {
+//           var div = document.createElement('div');
+//           div.classList.add('dropdown-item');
+//           div.textContent = detail.serialNumber;
+//           div.onclick = function() {
+//               document.getElementById('MachineSerialNumber').value = detail.serialNumber;
+//               dropdown.style.display = 'none';
+//               fetchAddress(detail.serialNumber);
+//           };
+//           dropdown.appendChild(div);
+//       });
+//   } else {
+//       dropdown.style.display = 'none';
+//   }
+// }
+
+// document.addEventListener('click', function(event) {
+//   var companyDropdown = document.getElementById('companyDropdown');
+//   var machineDropdown = document.getElementById('machineDropdown');
+//   if (!companyDropdown.contains(event.target) && event.target.id !== 'CompanyName') {
+//       companyDropdown.style.display = 'none';
+//   }
+//   if (!machineDropdown.contains(event.target) && event.target.id !== 'MachineSerialNumber') {
+//       machineDropdown.style.display = 'none';
+//   }
+// });
+
+// document.getElementById('CompanyName').addEventListener('focus', function() {
+//   var dropdown = document.getElementById('companyDropdown');
+//   if (dropdown.children.length > 0) {
+//       dropdown.style.display = 'block';
+//   }
+// });
+function fetchCompanies(searchTerm) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?searchTerm=' + encodeURIComponent(searchTerm), true);
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var companies = JSON.parse(xhr.responseText);
+          companies.push('OTHERS'); // Add "OTHERS" option
+          updateDropdown(companies);
+      }
+  };
+  xhr.send();
+}
+
+function updateDropdown(companies) {
+  var dropdown = document.getElementById('companyDropdown');
+  var errorDiv = document.getElementById('companyError');
+  dropdown.innerHTML = '';
+  if (companies.length > 0) {
+      dropdown.style.display = 'block';
+      errorDiv.style.display = 'none';
+      companies.forEach(function(company) {
+          var div = document.createElement('div');
+          div.classList.add('dropdown-item');
+          div.textContent = company;
+          div.onclick = function() {
+              document.getElementById('CompanyName').value = company;
+              dropdown.style.display = 'none';
+              if (company === 'OTHERS') {
+                  enableEditing();
+              } else {
+                  disableEditing();
+                  fetchMachineDetails(company);
+              }
+          };
+          dropdown.appendChild(div);
+      });
+  } else {
+      dropdown.style.display = 'none';
+      errorDiv.style.display = 'block';
+  }
+}
+
+function enableEditing() {
+  document.getElementById('OtherCompanyNameGroup').style.display = 'block';
+  document.getElementById('MachineSerialNumber').removeAttribute('readonly');
+  document.getElementById('CompanyAddress').removeAttribute('readonly');
+  document.getElementById('MachineSerialNumber').value = '';
+  document.getElementById('CompanyAddress').value = '';
+}
+
+function disableEditing() {
+  document.getElementById('OtherCompanyNameGroup').style.display = 'none';
+  document.getElementById('MachineSerialNumber').setAttribute('readonly', true);
+  document.getElementById('CompanyAddress').setAttribute('readonly', true);
+}
+
+function fetchMachineDetails(companyName) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?companyName=' + encodeURIComponent(companyName), true);
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var machineDetails = JSON.parse(xhr.responseText);
+          updateMachineDropdown(machineDetails);
+      }
+  };
+  xhr.send();
+}
+
+function fetchAddress(machineSerialNumber) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?machineSerialNumber=' + encodeURIComponent(machineSerialNumber), true);
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var addressDetails = JSON.parse(xhr.responseText);
+          document.getElementById('CompanyAddress').value = addressDetails.address;
+      }
+  };
+  xhr.send();
+}
+
+function updateMachineDropdown(machineDetails) {
+  var dropdown = document.getElementById('machineDropdown');
+  dropdown.innerHTML = '';
+  if (machineDetails.length === 1) {
+      document.getElementById('MachineSerialNumber').value = machineDetails[0].serialNumber;
+      fetchAddress(machineDetails[0].serialNumber);
+      dropdown.style.display = 'none';
+  } else if (machineDetails.length > 1) {
+      dropdown.style.display = 'block';
+      machineDetails.forEach(function(detail) {
+          var div = document.createElement('div');
+          div.classList.add('dropdown-item');
+          div.textContent = detail.serialNumber;
+          div.onclick = function() {
+              document.getElementById('MachineSerialNumber').value = detail.serialNumber;
+              dropdown.style.display = 'none';
+              fetchAddress(detail.serialNumber);
+          };
+          dropdown.appendChild(div);
+      });
+  } else {
+      dropdown.style.display = 'none';
+  }
+}
+
+document.addEventListener('click', function(event) {
+  var companyDropdown = document.getElementById('companyDropdown');
+  var machineDropdown = document.getElementById('machineDropdown');
+  if (!companyDropdown.contains(event.target) && event.target.id !== 'CompanyName') {
+      companyDropdown.style.display = 'none';
+  }
+  if (!machineDropdown.contains(event.target) && event.target.id !== 'MachineSerialNumber') {
+      machineDropdown.style.display = 'none';
+  }
+});
+
+document.getElementById('CompanyName').addEventListener('focus', function() {
+  var dropdown = document.getElementById('companyDropdown');
+  if (dropdown.children.length > 0) {
+      dropdown.style.display = 'block';
+  }
+});

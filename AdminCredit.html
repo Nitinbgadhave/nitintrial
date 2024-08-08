@@ -110,16 +110,6 @@
                 padding: 3px;
             }
             
-/* Responsive design for smaller screens */
-@media (max-width: 480px) {
-    .form-container {
-        width: 100%;
-    }
-
-    .form-container button {
-        width: 100%;
-    }
-}
             
     </style>
 </head>
@@ -202,7 +192,7 @@
 
 <script>
 document.getElementById("allEngineerHistoryButton").addEventListener("click", function() {
-    window.open("./Adminreport.html", "_blank");
+    window.open("D:/Projects/Sil_Service_Form/Final pages/New Updates in Project/API & Database coonection with HTML/CreditAndDebit - Copy/HTML/Adminreport.html", "_blank");
 });
 
 // go back button
@@ -217,7 +207,7 @@ function goBack() {
 document.getElementById('searchBtn').addEventListener('click', function () {
     var name = document.getElementById('name').value;
     if (name.length >= 3) { // Minimum characters required to start searching
-        fetch(`https://114.143.65.90:8433/api/CDTransactions/googlesheet/${name}`)
+        fetch(`http://localhost:5246/api/CDTransactions/googlesheet/${name}`)
             .then(response => response.json())
             .then(data => {
                 var nameList = document.getElementById('nameList');
@@ -250,7 +240,7 @@ document.getElementById('searchBtn').addEventListener('click', function () {
 
 
 async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
-    let url = `https://114.143.65.90:8433/api/CDTransactions/TransactionHistory/${employeeId}`;
+    let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
     if (startDate && endDate) {
         url += `?startDate=${startDate}&endDate=${endDate}`;
     }
@@ -273,7 +263,7 @@ document.getElementById('filterButton').addEventListener('click', function () {
 
 
 async function fetchTransactionsByEmployee(employeeId, startDate, endDate) {
-    let url = `https://114.143.65.90:8433/api/CDTransactions/TransactionHistory/${employeeId}`;
+    let url = `https://localhost:7174/api/CDTransactions/TransactionHistory/${employeeId}`;
     if (startDate && endDate) {
         url += `?startDate=${startDate}&endDate=${endDate}`;
     }
@@ -304,7 +294,7 @@ document.getElementById('setCreditButton').addEventListener('click', async funct
     };
 
     // Send a POST request to your API endpoint
-    fetch('https://114.143.65.90:8433/api/CDTransactions/AddTransaction', {
+    fetch('https://localhost:7174/api/CDTransactions/AddTransaction', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
