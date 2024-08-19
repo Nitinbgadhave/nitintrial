@@ -155,25 +155,110 @@ temp = temp.concat(problems);
 document.getElementById('selectedProblems').value = temp.join(',');
 }
 
+// 
 
-// FETCH FIRST AND LAST NAME
+//   //Get the employeeId from the URL & Function to retrieve employeeId from URL
+
+//   function getEmployeeIdFromUrl() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     return urlParams.get('employeeId');
+// }
+
+// // Function to fetch engineer name based on employeeId
+// function fetchEngineerName(empId) {
+//     fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.engineer_Name) {
+//             document.getElementById('Engineer Name').value = data.engineer_Name;
+//         } else {
+//             // Display error message
+//             alert('Engineer name not found for employee ID ' + empId);
+//             // Clear the input field
+//             document.getElementById('Engineer Name').value = '';
+//         }
+//     })
+//     .catch(error => console.error('Error:', error));
+// }
+
+// // Auto-fill the employeeId on page load
+// document.addEventListener('DOMContentLoaded', function() {
+//     const empId = getEmployeeIdFromUrl();
+//     if (empId) {
+//         document.getElementById('EmpID').value = empId;
+//         fetchEngineerName(empId); // Fetch the engineer name based on the employeeId
+//     }
+// });
+
+// // Fetch engineer name when the employeeId input loses focus (if manually entered)
+// document.getElementById('EmpID').addEventListener('blur', function() {
+//     var empId = this.value;
+//     fetchEngineerName(empId);
+// });
+  // Generate a GUID
+  function generateGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+// Function to map GUID to employeeId (can use localStorage or sessionStorage)
+function setGuidToEmpIdMapping(guid, empId) {
+    sessionStorage.setItem(guid, empId);
+}
+
+// Function to get employeeId from GUID
+function getEmployeeIdFromGuid(guid) {
+    return sessionStorage.getItem(guid);
+}
+
+// Function to fetch engineer name based on employeeId
+function fetchEngineerName(empId) {
+    fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
+    .then(response => response.json())
+    .then(data => {
+        if (data.engineer_Name) {
+            document.getElementById('Engineer Name').value = data.engineer_Name;
+        } else {
+            alert('Engineer name not found for employee ID ' + empId);
+            document.getElementById('Engineer Name').value = '';
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Initialize and handle GUID to employeeId mapping
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let empId = urlParams.get('employeeId');
+    let guid = urlParams.get('guid');
+
+    if (guid) {
+        // Retrieve employeeId from GUID
+        empId = getEmployeeIdFromGuid(guid);
+    } else if (empId) {
+        // Generate a new GUID and set mapping
+        guid = generateGuid();
+        setGuidToEmpIdMapping(guid, empId);
+        // Update URL with GUID
+        urlParams.delete('employeeId');
+        urlParams.set('guid', guid);
+        const newUrl = window.location.pathname + '?' + urlParams.toString();
+        window.history.replaceState(null, '', newUrl);
+    }
+
+    if (empId) {
+        document.getElementById('EmpID').value = empId;
+        fetchEngineerName(empId);
+    }
+});
+
+// Fetch engineer name when the employeeId input loses focus (if manually entered)
 document.getElementById('EmpID').addEventListener('blur', function() {
-  var empId = this.value;
-  fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
-  .then(response => response.json())
-  .then(data => {
-  if (data.engineer_Name) {
-  document.getElementById('Engineer Name').value = data.engineer_Name;
-  } else {
-  // Display error message
-  alert('First name and last name not found for employee ID ' + empId);
-  // Clear the input field
-  document.getElementById('Engineer Name').value = '';
-  }
-  })
-  .catch(error => console.error('Error:', error));
-  });
-  
+    var empId = this.value;
+    fetchEngineerName(empId);
+});
 // image preview
 function previewImage(event) {
   var preview = document.getElementById('preview');
@@ -248,228 +333,140 @@ function toUpperCaseInput(event) {
   event.target.value = event.target.value.toUpperCase();
   fetchCompanies(event.target.value);
 }
-// //company details 
-// function fetchCompanies(searchTerm) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?searchTerm=' + encodeURIComponent(searchTerm), true);
-//   xhr.onload = function() {
-//       if (xhr.status === 200) {
-//           var companies = JSON.parse(xhr.responseText);
-//           updateDropdown(companies);
-//       }
-//   };
-//   xhr.send();
-// }
 
-// function fetchMachineDetails(companyName) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?companyName=' + encodeURIComponent(companyName), true);
-//   xhr.onload = function() {
-//       if (xhr.status === 200) {
-//           var machineDetails = JSON.parse(xhr.responseText);
-//           updateMachineDropdown(machineDetails);
-//       }
-//   };
-//   xhr.send();
-// }
-
-// function fetchAddress(machineSerialNumber) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?machineSerialNumber=' + encodeURIComponent(machineSerialNumber), true);
-//   xhr.onload = function() {
-//       if (xhr.status === 200) {
-//           var addressDetails = JSON.parse(xhr.responseText);
-//           document.getElementById('CompanyAddress').value = addressDetails.address;
-//       }
-//   };
-//   xhr.send();
-// }
-
-// function updateDropdown(companies) {
-//   var dropdown = document.getElementById('companyDropdown');
-//   var errorDiv = document.getElementById('companyError');
-//   dropdown.innerHTML = '';
-//   if (companies.length > 0) {
-//       dropdown.style.display = 'block';
-//       errorDiv.style.display = 'none';
-//       companies.forEach(function(company) {
-//           var div = document.createElement('div');
-//           div.classList.add('dropdown-item');
-//           div.textContent = company;
-//           div.onclick = function() {
-//               document.getElementById('CompanyName').value = company;
-//               dropdown.style.display = 'none';
-//               fetchMachineDetails(company);
-//           };
-//           dropdown.appendChild(div);
-//       });
-//   } else {
-//       dropdown.style.display = 'none';
-//       errorDiv.style.display = 'block';
-//   }
-// }
-
-// function updateMachineDropdown(machineDetails) {
-//   var dropdown = document.getElementById('machineDropdown');
-//   dropdown.innerHTML = '';
-//   if (machineDetails.length === 1) {
-//       document.getElementById('MachineSerialNumber').value = machineDetails[0].serialNumber;
-//       fetchAddress(machineDetails[0].serialNumber);
-//       dropdown.style.display = 'none';
-//   } else if (machineDetails.length > 1) {
-//       dropdown.style.display = 'block';
-//       machineDetails.forEach(function(detail) {
-//           var div = document.createElement('div');
-//           div.classList.add('dropdown-item');
-//           div.textContent = detail.serialNumber;
-//           div.onclick = function() {
-//               document.getElementById('MachineSerialNumber').value = detail.serialNumber;
-//               dropdown.style.display = 'none';
-//               fetchAddress(detail.serialNumber);
-//           };
-//           dropdown.appendChild(div);
-//       });
-//   } else {
-//       dropdown.style.display = 'none';
-//   }
-// }
-
-// document.addEventListener('click', function(event) {
-//   var companyDropdown = document.getElementById('companyDropdown');
-//   var machineDropdown = document.getElementById('machineDropdown');
-//   if (!companyDropdown.contains(event.target) && event.target.id !== 'CompanyName') {
-//       companyDropdown.style.display = 'none';
-//   }
-//   if (!machineDropdown.contains(event.target) && event.target.id !== 'MachineSerialNumber') {
-//       machineDropdown.style.display = 'none';
-//   }
-// });
-
-// document.getElementById('CompanyName').addEventListener('focus', function() {
-//   var dropdown = document.getElementById('companyDropdown');
-//   if (dropdown.children.length > 0) {
-//       dropdown.style.display = 'block';
-//   }
-// });
-function fetchCompanies(searchTerm) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?searchTerm=' + encodeURIComponent(searchTerm), true);
-  xhr.onload = function() {
+  function fetchCompanies(searchTerm) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyoKcfGbKMmptoDwE-gr06-yWJ-jqfnjaoMYHKV_YDJ7D70XMhs_SAHvbkSO2akZRM0dw/exec?searchTerm=' + encodeURIComponent(searchTerm), true);
+    xhr.onload = function() {
       if (xhr.status === 200) {
-          var companies = JSON.parse(xhr.responseText);
-          companies.push('OTHERS'); // Add "OTHERS" option
-          updateDropdown(companies);
+        var companies = JSON.parse(xhr.responseText);
+        companies.push('OTHERS'); // Add "OTHERS" option
+        updateDropdown(companies, 'companyDropdown', 'CompanyName');
       }
-  };
-  xhr.send();
-}
-
-function updateDropdown(companies) {
-  var dropdown = document.getElementById('companyDropdown');
-  var errorDiv = document.getElementById('companyError');
-  dropdown.innerHTML = '';
-  if (companies.length > 0) {
+    };
+    xhr.send();
+  }
+  
+  function updateDropdown(items, dropdownId, inputId) {
+    var dropdown = document.getElementById(dropdownId);
+    var errorDiv = document.getElementById('companyError');
+    dropdown.innerHTML = '';
+  
+    if (items.length > 0) {
       dropdown.style.display = 'block';
       errorDiv.style.display = 'none';
-      companies.forEach(function(company) {
-          var div = document.createElement('div');
-          div.classList.add('dropdown-item');
-          div.textContent = company;
-          div.onclick = function() {
-              document.getElementById('CompanyName').value = company;
-              dropdown.style.display = 'none';
-              if (company === 'OTHERS') {
-                  enableEditing();
-              } else {
-                  disableEditing();
-                  fetchMachineDetails(company);
-              }
-          };
-          dropdown.appendChild(div);
+  
+      items.forEach(function(item) {
+        var displayText = (typeof item === 'object') ? item.serialNumber : item;
+  
+        var div = document.createElement('div');
+        div.classList.add('dropdown-item');
+        div.textContent = displayText;
+        div.onclick = function() {
+          document.getElementById(inputId).value = displayText;
+          dropdown.style.display = 'none';
+          if (inputId === 'CompanyName') {
+            if (displayText === 'OTHERS') {
+              enableEditing();
+            } else {
+              disableEditing();
+              fetchMachineDetails(displayText);
+            }
+          } else if (inputId === 'MachineSerialNumber') {
+            fetchAddress(displayText);
+          }
+        };
+        dropdown.appendChild(div);
       });
-  } else {
+    } else {
       dropdown.style.display = 'none';
       errorDiv.style.display = 'block';
+    }
   }
-}
-
-function enableEditing() {
-  document.getElementById('OtherCompanyNameGroup').style.display = 'block';
-  document.getElementById('MachineSerialNumber').removeAttribute('readonly');
-  document.getElementById('CompanyAddress').removeAttribute('readonly');
-  document.getElementById('MachineSerialNumber').value = '';
-  document.getElementById('CompanyAddress').value = '';
-}
-
-function disableEditing() {
-  document.getElementById('OtherCompanyNameGroup').style.display = 'none';
-  document.getElementById('MachineSerialNumber').setAttribute('readonly', true);
-  document.getElementById('CompanyAddress').setAttribute('readonly', true);
-}
-
-function fetchMachineDetails(companyName) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?companyName=' + encodeURIComponent(companyName), true);
-  xhr.onload = function() {
-      if (xhr.status === 200) {
-          var machineDetails = JSON.parse(xhr.responseText);
-          updateMachineDropdown(machineDetails);
-      }
-  };
-  xhr.send();
-}
-
-function fetchAddress(machineSerialNumber) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyPBuTAlRha2rlTxRDsbZv_nCbyKMKJr5HyXF07H_Yc1ynAqMmpmGRFslX2X1_4BCPsjA/exec?machineSerialNumber=' + encodeURIComponent(machineSerialNumber), true);
-  xhr.onload = function() {
-      if (xhr.status === 200) {
-          var addressDetails = JSON.parse(xhr.responseText);
-          document.getElementById('CompanyAddress').value = addressDetails.address;
-      }
-  };
-  xhr.send();
-}
-
-function updateMachineDropdown(machineDetails) {
-  var dropdown = document.getElementById('machineDropdown');
-  dropdown.innerHTML = '';
-  if (machineDetails.length === 1) {
-      document.getElementById('MachineSerialNumber').value = machineDetails[0].serialNumber;
-      fetchAddress(machineDetails[0].serialNumber);
-      dropdown.style.display = 'none';
-  } else if (machineDetails.length > 1) {
-      dropdown.style.display = 'block';
-      machineDetails.forEach(function(detail) {
-          var div = document.createElement('div');
-          div.classList.add('dropdown-item');
-          div.textContent = detail.serialNumber;
-          div.onclick = function() {
-              document.getElementById('MachineSerialNumber').value = detail.serialNumber;
-              dropdown.style.display = 'none';
-              fetchAddress(detail.serialNumber);
-          };
-          dropdown.appendChild(div);
-      });
-  } else {
-      dropdown.style.display = 'none';
+  
+  function enableEditing() {
+    document.getElementById('OtherCompanyNameGroup').style.display = 'block';
+    document.getElementById('MachineSerialNumber').removeAttribute('readonly');
+    document.getElementById('CompanyAddress').removeAttribute('readonly');
+    document.getElementById('LaserPower').removeAttribute('readonly'); // Make LaserPower editable
+    document.getElementById('MachineSerialNumber').value = '';
+    document.getElementById('CompanyAddress').value = '';
+    document.getElementById('LaserPower').value = ''; // Clear LaserPower field
   }
-}
-
-document.addEventListener('click', function(event) {
-  var companyDropdown = document.getElementById('companyDropdown');
-  var machineDropdown = document.getElementById('machineDropdown');
-  if (!companyDropdown.contains(event.target) && event.target.id !== 'CompanyName') {
+  
+  function disableEditing() {
+    document.getElementById('OtherCompanyNameGroup').style.display = 'none';
+    document.getElementById('MachineSerialNumber').setAttribute('readonly', true);
+    document.getElementById('CompanyAddress').setAttribute('readonly', true);
+    document.getElementById('LaserPower').setAttribute('readonly', true); // Make LaserPower read-only
+  }
+  
+  function fetchMachineDetails(companyName) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyoKcfGbKMmptoDwE-gr06-yWJ-jqfnjaoMYHKV_YDJ7D70XMhs_SAHvbkSO2akZRM0dw/exec?companyName=' + encodeURIComponent(companyName), true);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        var machineDetails = JSON.parse(xhr.responseText);
+        if (machineDetails.length === 1) {
+          // Auto-select if only one machine serial number is available
+          document.getElementById('MachineSerialNumber').value = machineDetails[0].serialNumber;
+          fetchAddress(machineDetails[0].serialNumber);
+          document.getElementById('machineDropdown').style.display = 'none';
+        } else {
+          updateDropdown(machineDetails, 'machineDropdown', 'MachineSerialNumber');
+        }
+      } else {
+        console.error('Failed to fetch machine details:', xhr.statusText);
+      }
+    };
+    xhr.onerror = function() {
+      console.error('Request failed');
+    };
+    xhr.send();
+  }
+  
+  function fetchAddress(machineSerialNumber) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://script.google.com/macros/s/AKfycbyoKcfGbKMmptoDwE-gr06-yWJ-jqfnjaoMYHKV_YDJ7D70XMhs_SAHvbkSO2akZRM0dw/exec?machineSerialNumber=' + encodeURIComponent(machineSerialNumber), true);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        var addressDetails = JSON.parse(xhr.responseText);
+        document.getElementById('CompanyAddress').value = addressDetails.address;
+        document.getElementById('LaserPower').value = addressDetails.laserPower; // Populate the Laser Power field
+      } else {
+        console.error('Failed to fetch address:', xhr.statusText);
+      }
+    };
+    xhr.onerror = function() {
+      console.error('Request failed');
+    };
+    xhr.send();
+  }
+  
+  document.addEventListener('click', function(event) {
+    var companyDropdown = document.getElementById('companyDropdown');
+    var machineDropdown = document.getElementById('machineDropdown');
+    
+    if (!companyDropdown.contains(event.target) && event.target.id !== 'CompanyName') {
       companyDropdown.style.display = 'none';
-  }
-  if (!machineDropdown.contains(event.target) && event.target.id !== 'MachineSerialNumber') {
+    }
+    
+    if (!machineDropdown.contains(event.target) && event.target.id !== 'MachineSerialNumber') {
       machineDropdown.style.display = 'none';
-  }
-});
-
-document.getElementById('CompanyName').addEventListener('focus', function() {
-  var dropdown = document.getElementById('companyDropdown');
-  if (dropdown.children.length > 0) {
+    }
+  });
+  
+  document.getElementById('CompanyName').addEventListener('focus', function() {
+    var dropdown = document.getElementById('companyDropdown');
+    if (dropdown.children.length > 0) {
       dropdown.style.display = 'block';
-  }
-});
+    }
+  });
+  
+  document.getElementById('MachineSerialNumber').addEventListener('focus', function() {
+    var dropdown = document.getElementById('machineDropdown');
+    if (dropdown.children.length > 0) {
+      dropdown.style.display = 'block';
+    }
+  });
+  
