@@ -8,26 +8,28 @@
     <link rel="stylesheet" href="MachineDetails.css">
 </head>
 <body>
-    <div class="form-container">
+    <div class="form-container">                       
         <div class="logo-container">
             <img src="./sil.png" alt="Company Logo" class="company-logo">
         </div>
-        <h2>Machine Details Form</h2>
+        <h2>Add Machine Details </h2>
         <form id="machineForm">
-            <label for="companyName">Company Name:</label>
+            <label for="companyName">Company Name<span class="mandatory">*</span>:</label>
             <input type="text" id="companyName" name="companyName" required>
             
-            <label for="companyAddress">Company Address:</label>
+            <label for="companyAddress">Company Address<span class="mandatory">*</span>:</label>
             <textarea id="companyAddress" name="companyAddress" rows="4" required></textarea>
             
-            <label for="machineSerial">Machine Serial Number:</label>
+            <label for="machineSerial">Machine Serial Number<span class="mandatory">*</span>:</label>
             <input type="text" id="machineSerial" name="machineSerial" required>
             
-            <label for="laserPower">Laser Power:</label>
+            <label for="laserPower">Laser Power<span class="mandatory">*</span>:</label>
             <input type="text" id="laserPower" name="laserPower" required>
             
-            <button type="submit">Save</button>
-          
+            <div class="button-container">
+                <button type="submit" class="save-button">Save</button>
+                <button type="button" class="back-button" onclick="goBack()">Back</button>
+            </div>
         </form>
         <p id="statusMessage"></p>
        

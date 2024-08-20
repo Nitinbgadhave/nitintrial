@@ -36,6 +36,68 @@ ServiceCodeInput.style.display = "none";
 }
 
 
+// // Get references to the input elements
+// var startDateInput = document.getElementById('Start-Date');
+// var endDateInput = document.getElementById('End-Date');
+// var totalWorkingDaysInput = document.getElementById('Total-Working-Days');
+// var workingDaysDiv = document.getElementById('workingDays');
+
+// // Add event listeners to handle date validation and calculate working days
+// startDateInput.addEventListener('input', handleDateChange);
+// endDateInput.addEventListener('input', handleDateChange);
+// totalWorkingDaysInput.addEventListener('input', handleTotalDaysChange);
+
+// function handleDateChange() {
+// var startDate = new Date(startDateInput.value);
+// var endDate = new Date(endDateInput.value);
+
+// // Check if the selected end date is less than the start date
+// if (endDate < startDate) {
+// alert('End date cannot be less than the start date.');
+// endDateInput.value = ''; // Clear the input value
+// } else {
+// var totalDays = calculateTotalDays(startDate, endDate);
+// totalWorkingDaysInput.value = totalDays; // Update total number of days
+// var workingDays = calculateWorkingDays(startDate, endDate);
+// workingDaysDiv.textContent = 'Total Number of days: ' + workingDays;
+// }
+// }
+
+// function handleTotalDaysChange() {
+// var totalDays = parseInt(totalWorkingDaysInput.value);
+// var startDate = new Date(startDateInput.value);
+// var endDate = new Date(endDateInput.value);
+// var workingDays = calculateWorkingDays(startDate, endDate);
+
+// if (totalDays < 1) {
+// alert('Total days must be at least 1.');
+// totalWorkingDaysInput.value = ''; // Clear the input value
+// } else if (totalDays > workingDays) {
+// alert('Total days cannot be greater than total working days.');
+// totalWorkingDaysInput.value = workingDays; // Set the value to the maximum allowed
+// }
+// }
+
+// function calculateTotalDays(startDate, endDate) {
+// // Calculate the difference in milliseconds between the two dates
+// var difference = Math.abs(endDate - startDate);
+
+// // Convert the difference to days
+// var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+// return daysDifference + 1; // Add 1 to include both start and end dates
+// }
+
+// function calculateWorkingDays(startDate, endDate) {
+// // Calculate the difference in milliseconds between the two dates
+// var difference = Math.abs(endDate - startDate);
+
+// // Convert the difference to days
+// var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+// return daysDifference + 1; // Add 1 to include both start and end dates as working days
+// }
+
 // Get references to the input elements
 var startDateInput = document.getElementById('Start-Date');
 var endDateInput = document.getElementById('End-Date');
@@ -48,56 +110,62 @@ endDateInput.addEventListener('input', handleDateChange);
 totalWorkingDaysInput.addEventListener('input', handleTotalDaysChange);
 
 function handleDateChange() {
-var startDate = new Date(startDateInput.value);
-var endDate = new Date(endDateInput.value);
+    var startDate = new Date(startDateInput.value);
+    var endDate = new Date(endDateInput.value);
 
-// Check if the selected end date is less than the start date
-if (endDate < startDate) {
-alert('End date cannot be less than the start date.');
-endDateInput.value = ''; // Clear the input value
-} else {
-var totalDays = calculateTotalDays(startDate, endDate);
-totalWorkingDaysInput.value = totalDays; // Update total number of days
-var workingDays = calculateWorkingDays(startDate, endDate);
-workingDaysDiv.textContent = 'Total Number of days: ' + workingDays;
-}
+    // Check if the start date or end date is invalid
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        totalWorkingDaysInput.value = ''; // Clear the input value
+        workingDaysDiv.textContent = 'Total Number of days: 0';
+        return;
+    }
+
+    // Check if the selected end date is less than the start date
+    if (endDate < startDate) {
+        alert('End date cannot be less than the start date.');
+        endDateInput.value = ''; // Clear the input value
+    } else {
+        var totalDays = calculateTotalDays(startDate, endDate);
+        totalWorkingDaysInput.value = totalDays; // Update total number of days
+        var workingDays = calculateWorkingDays(startDate, endDate);
+        workingDaysDiv.textContent = 'Total Number of days: ' + workingDays;
+    }
 }
 
 function handleTotalDaysChange() {
-var totalDays = parseInt(totalWorkingDaysInput.value);
-var startDate = new Date(startDateInput.value);
-var endDate = new Date(endDateInput.value);
-var workingDays = calculateWorkingDays(startDate, endDate);
+    var totalDays = parseInt(totalWorkingDaysInput.value, 10);
+    var startDate = new Date(startDateInput.value);
+    var endDate = new Date(endDateInput.value);
+    var workingDays = calculateWorkingDays(startDate, endDate);
 
-if (totalDays < 1) {
-alert('Total days must be at least 1.');
-totalWorkingDaysInput.value = ''; // Clear the input value
-} else if (totalDays > workingDays) {
-alert('Total days cannot be greater than total working days.');
-totalWorkingDaysInput.value = workingDays; // Set the value to the maximum allowed
-}
+    if (isNaN(totalDays) || totalDays < 1) {
+        alert('Total days must be at least 1.');
+        totalWorkingDaysInput.value = ''; // Clear the input value
+    } else if (totalDays > workingDays) {
+        alert('Total days cannot be greater than total working days.');
+        totalWorkingDaysInput.value = workingDays; // Set the value to the maximum allowed
+    }
 }
 
 function calculateTotalDays(startDate, endDate) {
-// Calculate the difference in milliseconds between the two dates
-var difference = Math.abs(endDate - startDate);
+    // Calculate the difference in milliseconds between the two dates
+    var difference = Math.abs(endDate - startDate);
 
-// Convert the difference to days
-var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+    // Convert the difference to days
+    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
-return daysDifference + 1; // Add 1 to include both start and end dates
+    return daysDifference + 1; // Add 1 to include both start and end dates
 }
 
 function calculateWorkingDays(startDate, endDate) {
-// Calculate the difference in milliseconds between the two dates
-var difference = Math.abs(endDate - startDate);
+    // Calculate the difference in milliseconds between the two dates
+    var difference = Math.abs(endDate - startDate);
 
-// Convert the difference to days
-var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+    // Convert the difference to days
+    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
-return daysDifference + 1; // Add 1 to include both start and end dates as working days
+    return daysDifference + 1; // Add 1 to include both start and end dates as working days
 }
-
 
 let selectedAreaProblems = {};
 
@@ -155,46 +223,7 @@ temp = temp.concat(problems);
 document.getElementById('selectedProblems').value = temp.join(',');
 }
 
-// 
 
-//   //Get the employeeId from the URL & Function to retrieve employeeId from URL
-
-//   function getEmployeeIdFromUrl() {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     return urlParams.get('employeeId');
-// }
-
-// // Function to fetch engineer name based on employeeId
-// function fetchEngineerName(empId) {
-//     fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.engineer_Name) {
-//             document.getElementById('Engineer Name').value = data.engineer_Name;
-//         } else {
-//             // Display error message
-//             alert('Engineer name not found for employee ID ' + empId);
-//             // Clear the input field
-//             document.getElementById('Engineer Name').value = '';
-//         }
-//     })
-//     .catch(error => console.error('Error:', error));
-// }
-
-// // Auto-fill the employeeId on page load
-// document.addEventListener('DOMContentLoaded', function() {
-//     const empId = getEmployeeIdFromUrl();
-//     if (empId) {
-//         document.getElementById('EmpID').value = empId;
-//         fetchEngineerName(empId); // Fetch the engineer name based on the employeeId
-//     }
-// });
-
-// // Fetch engineer name when the employeeId input loses focus (if manually entered)
-// document.getElementById('EmpID').addEventListener('blur', function() {
-//     var empId = this.value;
-//     fetchEngineerName(empId);
-// });
   // Generate a GUID
   function generateGuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -398,7 +427,7 @@ function toUpperCaseInput(event) {
     document.getElementById('OtherCompanyNameGroup').style.display = 'none';
     document.getElementById('MachineSerialNumber').setAttribute('readonly', true);
     document.getElementById('CompanyAddress').setAttribute('readonly', true);
-    document.getElementById('LaserPower').setAttribute('readonly', true); // Make LaserPower read-only
+    // document.getElementById('LaserPower').setAttribute('readonly', true); // Make LaserPower read-only
   }
   
   function fetchMachineDetails(companyName) {
@@ -433,6 +462,8 @@ function toUpperCaseInput(event) {
         var addressDetails = JSON.parse(xhr.responseText);
         document.getElementById('CompanyAddress').value = addressDetails.address;
         document.getElementById('LaserPower').value = addressDetails.laserPower; // Populate the Laser Power field
+         document.getElementById('LaserPower').removeAttribute('readonly'); // Ensure LaserPower remains editable
+    
       } else {
         console.error('Failed to fetch address:', xhr.statusText);
       }

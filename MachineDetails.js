@@ -38,3 +38,6 @@ document.getElementById('machineForm').addEventListener('submit', function(event
 document.getElementById('machineSerial').addEventListener('input', function() {
   this.value = this.value.replace(/\s/g, '');
 });
+function goBack() {
+  window.history.back();
+}
