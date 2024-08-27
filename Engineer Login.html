@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -180,20 +180,34 @@
           throw new Error("Network response was not ok.");
         }
       })
-      .then(data => {
-        if (data.success) {
-          alert("Login successful");
-          // Redirect to the next page
-          var url = "./select.html?employeeId=" +  empId;
-          window.location.href = url;
-        } else {
-          alert("Login failed: " + data.message);
-        }
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
-      });
+    //   .then(data => {
+    //     if (data.success) {
+    //       alert("Login successful");
+    //       // Redirect to the next page
+    //       var url = "./select.html?employeeId=" +  empId;
+    //       window.location.href = url;
+    //     } else {
+    //       alert("Login failed: " + data.message);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     alert("Error: " + error.message);
+    //   });
+    // }
+    .then(data => {
+    if (data.success) {
+        alert("Login successful! Redirecting you now.");
+        // Redirect to the next page
+        var url = "./select.html?employeeId=" + empId;
+        window.location.href = url;
+    } else {
+        alert("Login failed: Incorrect username or password. Please try again.");
     }
+})
+.catch(error => {
+    alert("An unexpected error occurred during login. Please check your connection and try again.");
+});
+     }
     function goBack() {
       // Add any specific behavior for the back button, e.g., navigating to the previous page
       window.location.href = "./index.html";
@@ -212,4 +226,4 @@
   }
   </script>
 </body>
-</html>
+</html> 

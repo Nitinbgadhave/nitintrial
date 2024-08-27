@@ -26,8 +26,8 @@
         </header>
         <Center><h2>Services Report</h2></Center>
         
-    <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbx_udt3MhPaIpoXzODjChar-1KXO7CmglDQI_k9pgf5bVrfyxdRRbRfH6LGikbqMh3zoQ/exec">   -->
-     <form method="POST" action="https://script.google.com/macros/s/AKfycbw4VelO6IlusAIKXji7ISiDbqKbBcmsVqJX-_3DhmeZ7neIbpPMlIFciSU9RcrOEsH1rg/exec">  
+    <form method="POST" action="https://script.google.com/macros/s/AKfycby850IwvHdBQfVdYTGROMH8t4qcXfEL4bTM_2D57yg1jFxcwpOyg_Sj90zUncV1S0S4-w/exec">  
+     <!-- <form method="POST" action="https://script.google.com/macros/s/AKfycbw4VelO6IlusAIKXji7ISiDbqKbBcmsVqJX-_3DhmeZ7neIbpPMlIFciSU9RcrOEsH1rg/exec">   -->
                 <div class="form-group">
                             <label for="EmpID">Emp ID<span class="mandatory"></span>:</label>
                             <input type="text" id="EmpID" name="EmpID" pattern="[0-9]+" title="Please enter only numbers" required readonly>
@@ -50,8 +50,9 @@
             
             <div class="form-group" id="OtherCompanyNameGroup" style="display: none;">
                 <label for="OtherCompanyName">Other Company Name<span class="mandatory"></span>:</label>
-                <input type="text" id="OtherCompanyName" class="form-control" name="Other Company Name" >
+                <input type="text" id="OtherCompanyName" class="form-control" name="Other Company Name">
             </div>
+            
             
             <div class="form-group">
                 <label for="MachineSerialNumber">Machine Serial Number<span class="mandatory"></span>:</label>
@@ -77,7 +78,7 @@
                     <option value="Ecat Sheet Cutting">Ecat sheet Cutting</option>
                     <option value="Backhoff Sheet Cutting">Backhoff sheet Cutting</option>
                     <option value="Fanuc Sheet Cutting">Fanuc sheet Cutting</option>
-                    <option value="FS Cut">FS Cut</option>
+                    <option value="FS Cut">FS Cut Sheet Cutting</option>
                     <option value="3 Chuck Tube Cutting">3 Chuck tube Cutting</option>
                     <option value="2 Chuck Tube Cutting">2 Chuck tube Cutting</option>
                     <option value="Sheet + Tube Cutting Machine">Sheet + Tube Cutting Machine</option>
@@ -122,6 +123,7 @@
             <label for="selectArea">Select Area<span class="mandatory"></span>:</label>
             <div class="custom-dropdown">
                 <div id="dropdownContent" class="dropdown-content">
+                    <label><input type="checkbox" id="checkbox_TRAINING" value="TRAINING" onchange="updateSelectedAreas()"> TRAINING</label><br>
                     <label><input type="checkbox" id="checkbox_MACHINE" value="MACHINE" onchange="updateSelectedAreas()"> MACHINE</label><br>
                     <label><input type="checkbox" id="checkbox_PALLET_SYSTEM" value="PALLET_SYSTEM" onchange="updateSelectedAreas()"> PALLET_SYSTEM</label><br>
                     <label><input type="checkbox" id="checkbox_CUTTING_HEAD" value="CUTTING_HEAD" onchange="updateSelectedAreas()"> CUTTING_HEAD</label><br>

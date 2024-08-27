@@ -42,20 +42,87 @@ let minutes = totalMinutes % 60;
 document.getElementById('Working-Hours').value = hours + ' hours ' + minutes + ' minutes';
 });
 
-// FETCH FIRST AND LAST NAME
-document.getElementById('EmpID').addEventListener('blur', function() {
-var empId = this.value;
-fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
-.then(response => response.json())
-.then(data => {
-if (data.engineer_Name) {
-document.getElementById('Engineer Name').value = data.engineer_Name;
-} else {
-// Display error message
-alert('First name and last name not found for employee ID ' + empId);
-// Clear the input field
-document.getElementById('Engineer Name').value = '';
+// // FETCH FIRST AND LAST NAME
+// document.getElementById('EmpID').addEventListener('blur', function() {
+// var empId = this.value;
+// fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
+// .then(response => response.json())
+// .then(data => {
+// if (data.engineer_Name) {
+// document.getElementById('Engineer Name').value = data.engineer_Name;
+// } else {
+// // Display error message
+// alert('First name and last name not found for employee ID ' + empId);
+// // Clear the input field
+// document.getElementById('Engineer Name').value = '';
+// }
+// })
+// .catch(error => console.error('Error:', error));
+// });
+
+
+  // Generate a GUID
+  function generateGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }
-})
-.catch(error => console.error('Error:', error));
+
+// Function to map GUID to employeeId (can use localStorage or sessionStorage)
+function setGuidToEmpIdMapping(guid, empId) {
+    sessionStorage.setItem(guid, empId);
+}
+
+// Function to get employeeId from GUID
+function getEmployeeIdFromGuid(guid) {
+    return sessionStorage.getItem(guid);
+}
+
+// Function to fetch engineer name based on employeeId
+function fetchEngineerName(empId) {
+    fetch('https://script.google.com/macros/s/AKfycbz22oMHNJRDu-wE3UPTXzyXsyg6WlZJGehuR2fVs5Ub7dpzFEQ9X_f0tNTDgkc5ytuoLA/exec?empId=' + empId)
+    .then(response => response.json())
+    .then(data => {
+        if (data.engineer_Name) {
+            document.getElementById('Engineer Name').value = data.engineer_Name;
+        } else {
+            alert('Engineer name not found for employee ID ' + empId);
+            document.getElementById('Engineer Name').value = '';
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Initialize and handle GUID to employeeId mapping
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let empId = urlParams.get('employeeId');
+    let guid = urlParams.get('guid');
+
+    if (guid) {
+        // Retrieve employeeId from GUID
+        empId = getEmployeeIdFromGuid(guid);
+    } else if (empId) {
+        // Generate a new GUID and set mapping
+        guid = generateGuid();
+        setGuidToEmpIdMapping(guid, empId);
+        // Update URL with GUID
+        urlParams.delete('employeeId');
+        urlParams.set('guid', guid);
+        const newUrl = window.location.pathname + '?' + urlParams.toString();
+        window.history.replaceState(null, '', newUrl);
+    }
+
+    if (empId) {
+        document.getElementById('EmpID').value = empId;
+        fetchEngineerName(empId);
+    }
 });
+
+// Fetch engineer name when the employeeId input loses focus (if manually entered)
+document.getElementById('EmpID').addEventListener('blur', function() {
+    var empId = this.value;
+    fetchEngineerName(empId);
+});
+// company dropdown

@@ -1,179 +1,139 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Service Page</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <style>
+    /* Your existing CSS */
     body {
-  margin: 0;
-  padding: 0;
-  background-image: url('./7.jpg');
-  background-size: cover;
-  font-family: 'Arial Unicode', sans-serif;
-  color: #140110; /* Text color */
-}
+      margin: 0;
+      padding: 0;
+      background-image: url('./7.jpg');
+      background-size: cover;
+      font-family: 'Arial Unicode', sans-serif;
+      color: #140110;
+    }
 
-.login-container {
-  text-align: center;
-  margin-top: 100px;
-  padding: 10px;
-  border-radius: 7px;
-  box-shadow: 0 0 10px rgb(225, 65, 164);
-  background-color: rgba(226, 236, 238, 0.8); /* Background color with opacity */
-}
+    .login-container {
+      text-align: center;
+      margin-top: 100px;
+      padding: 10px;
+      border-radius: 7px;
+      box-shadow: 0 0 10px rgb(225, 65, 164);
+      background-color: rgba(226, 236, 238, 0.8);
+    }
 
-.icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 20px;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: rgba(230, 240, 239, 0.5); /* Background color with opacity */
-}
+    .icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      font-family: 'Times New Roman', Times, serif;
+      background-color: rgba(230, 240, 239, 0.5);
+    }
 
-.icon-container a {
-  text-decoration: none;
-  color: #00010c;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 80px;
-}
+    .icon-container a {
+      text-decoration: none;
+      color: #00010c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 80px;
+    }
 
-.icon-container img {
-  width: 220px;
-  height: 180px;
-  margin-bottom: 20px;
-  border-radius: 50%;
-  cursor: pointer; 
-}
+    .icon-container img {
+      width: 220px;
+      height: 180px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      cursor: pointer; 
+    }
 
-.icon-container span {
-  font-weight: bold; /* Make the text bold */
-  font-size: 25px; /* Adjust the font size as needed */
-}
+    .icon-container span {
+      font-weight: bold;
+      font-size: 25px;
+    }
 
-.logout-button {
-  border: none;
-  padding: 25px 25px;
-  font-size: 25px;
-  cursor: pointer;
-  background-color: #ff0000; /* Red background color during blink */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto; /* Align the button to the right */
-}
-
-
+    .logout-button {
+      border: none;
+      padding: 25px 25px;
+      font-size: 25px;
+      cursor: pointer;
+      background-color: #ff0000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+    }
   </style>
 </head>
 <body>
   <div class="login-container">
     <div class="logo-container">
-        <img src="./sil.png" alt="logo">    </div>
-      <!-- Your existing content -->
-      <div class="dashboard-container" id="dashboard">
-        <!-- Dashboard content goes here -->
-        <h2>Welcome to the Dashboard</h2>
-        <!-- Include relevant content for the dashboard -->
-      </div>
+        <img src="./sil.png" alt="logo">
+    </div>
+    <div class="dashboard-container" id="dashboard">
+      <h2>Welcome to the Dashboard</h2>
+    </div>
     <div class="icon-container">
-      <a href="./Daily Work Report.html">
+      <a id="dailyWorkReportLink" href="./Daily Work Report.html">
         <img src="./dailyreport.png" alt="Admin Icon">
         <span>Daily Work Report</span>
       </a>
-   <!-- <a href="./Serviceform.html">
+      <a id="serviceLink" href="./Serviceform.html">
         <img src="./service.png" alt="Service Engineer Icon">
         <span>Service Report</span>
-      </a> 
-     -->
-     <a id="serviceLink" href="./Serviceform.html">
-      <img src="./service.png" alt="Service Engineer Icon">
-      <span>Service Report</span>
-    </a>
-    
-      <a href="./installation report.html">
+      </a>
+      <a id="installationReportLink" href="./installation report.html">
         <img src="./install.jpg" alt="Admin Icon">
         <span>Installation Report</span>
       </a>
-      <!-- <a id="debitLink" href="./EngineerDebit.html">
-        <img src="./cash.jpg" alt="Admin Icon">
-        <span>Cash Memo</span>
-      </a> -->
-         </div>
-        <button class="logout-button" onclick="logout()">
-    <i class="material-icons">power_settings_new</i> Logout
-  </button>
-
-
+    </div>
+    <button class="logout-button" onclick="logout()">
+      <i class="material-icons">power_settings_new</i> Logout
+    </button>
   </div>
 
   <script>
-    // Get the URL parameters
-const urlParams = new URLSearchParams(window.location.search);
-
-// Get the value of the employeeId parameter
-const employeeId = urlParams.get('employeeId');
-
-// Use the employeeId value
-console.log('Employee ID:', employeeId);
- // JavaScript
-  var debitLink = document.getElementById("debitLink");
-  debitLink.href += "?empId=" + employeeId;
-// Check if employeeId is already stored in sessionStorage
- // Update the service link with the empId
- 
-  </script>
-  <script>
     window.onload = function() {
-    // Get the URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
+      const urlParams = new URLSearchParams(window.location.search);
+      let employeeId = urlParams.get('employeeId');
 
-    // Get the value of the employeeId parameter
-    const employeeId = urlParams.get('employeeId');
+      if (!employeeId) {
+        // If employeeId is not present in the URL, try to get it from sessionStorage
+        employeeId = sessionStorage.getItem('employeeId');
+      } else {
+        // If employeeId is found in the URL, store it in sessionStorage
+        sessionStorage.setItem('employeeId', employeeId);
+      }
 
-    // Use the employeeId value
-    console.log('Employee ID:', employeeId);
+      if (employeeId) {
+        // Append employeeId to all links
+        document.getElementById('dailyWorkReportLink').href += "?employeeId=" + employeeId;
+        document.getElementById('serviceLink').href += "?employeeId=" + employeeId;
+        document.getElementById('installationReportLink').href += "?employeeId=" + employeeId;
+      } else {
+        // If no employeeId found, redirect to login page
+        window.location.href = './Engineer Login.html';
+      }
 
-    // Check if employeeId is present
-    if (employeeId) {
-        // Update the service link with the employeeId
-        var serviceLink = document.getElementById("serviceLink");
-        serviceLink.href += "?employeeId=" + employeeId;
+      // Set the session timer
+      setTimeout(function() {
+        alert("Session expired");
+        sessionStorage.removeItem('employeeId'); // Clear employeeId from sessionStorage on logout
+        window.location.href = './Engineer Login.html'; // Redirect to login page
+      }, 180000); // 180000 ms = 3 minutes
+    };
+
+    function logout() {
+      var confirmLogout = confirm("Are you sure you want to logout?");
+      if (confirmLogout) {
+        sessionStorage.removeItem('employeeId'); // Clear employeeId from sessionStorage on logout
+        window.location.href = './Engineer Login.html';
+      }
     }
-};
   </script>
 </body>
 </html>
-
-
-<div id="ServiceCodeInput" class="form-group" style="display: none;">
-    <label for="ServiceCode">Service Code<span class="mandatory"></span>:</label>
-    <input type="text" id="ServiceCode" name="ServiceCode">
-</div>
-
-<script>
-    function showServiceCodeInput() {
-        var selectedServiceType = document.getElementById("SelectServiceType").value;
-        var serviceCodeInput = document.getElementById("ServiceCodeInput");
-
-        if (selectedServiceType === "Other") {
-            serviceCodeInput.style.display = "block";
-        } else {
-            serviceCodeInput.style.display = "none";
-        }
-    }
-    function logout() {
-  // Ask for confirmation
-  var confirmLogout = confirm("Are you sure you want to logout?");
-  
-  // If the user confirms, redirect to the login page
-  if (confirmLogout) {
-    window.location.href = './Engineer Login.html'; // Replace 'login.html' with the actual path to your login page
-  }
-}
-
-</script>
